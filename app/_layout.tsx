@@ -35,7 +35,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('/(tabs)');
+      router.replace('/splash');
     }
   }, [loaded]);
 
