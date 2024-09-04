@@ -1,7 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -15,7 +15,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'splash',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -35,6 +35,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      router.replace('/(tabs)');
     }
   }, [loaded]);
 
@@ -51,8 +52,21 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
+        <Stack.Screen name="splash" options={{ headerShown: false }} />
+        <Stack.Screen name="signup" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="OtpVerificationScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="VerifyPhone" options={{ headerShown: false }} />
+        <Stack.Screen name="TransactionPinSetup" options={{ headerShown: false }} />
+        <Stack.Screen name="Biometric" options={{ headerShown: false }} />
+        <Stack.Screen name="QrCodeScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="Transfer" options={{ headerShown: false }} />
+        <Stack.Screen name="TransferScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="Rates" options={{ headerShown: false }} />
+        <Stack.Screen name="AddMoney" options={{ headerShown: false }} />
+        <Stack.Screen name="Notification" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );
