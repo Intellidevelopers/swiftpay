@@ -11,6 +11,7 @@ import {
   Modal,
   FlatList,
   RefreshControl,
+  Pressable,
 } from 'react-native';
 import {
   AntDesign,
@@ -29,13 +30,14 @@ import axios from 'axios';
 
 const { width } = Dimensions.get('window');
 
-// Sample data for countries and currencies
 const countries = [
   { name: 'Nigeria', currency: 'Naira', code: 'NGN', flag: require('../../assets/flag/nigeria.png') },
   { name: 'United States', currency: 'Dollar', code: 'USD', flag: require('../../assets/flag/usa.png') },
   { name: 'United Kingdom', currency: 'Pound', code: 'GBP', flag: require('../../assets/flag/uk.png') },
+  { name: 'Germany', currency: 'Euro', code: 'EUR', flag: require('../../assets/flag/germany.png') },
   // Add more countries as needed
 ];
+
 
 // Tab screen components
 function Index() {
@@ -46,6 +48,7 @@ function Index() {
   const [balance, setBalance] = useState(1000);
   const [convertedBalance, setConvertedBalance] = useState(balance);
   const [exchangeRate, setExchangeRate] = useState(1);
+  const [featurePricesVisible, setFeaturePricesVisible] = useState(true);
 
   useEffect(() => {
     if (selectedCountry.code !== 'USD') {
@@ -94,21 +97,23 @@ function Index() {
       <Text style={styles.countryText}>{item.name} ({item.currency})</Text>
     </TouchableOpacity>
   );
-
+  const renderPrice = () => {
+    return balanceVisible ? "$0.00" : "****";
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.push('/')}>
-          <FontAwesome6 name="s" size={18} color="white" />
+          <Text style={{color: "#fff", fontSize: 25, fontWeight: "900"}}>S</Text>
         </TouchableOpacity>
 
-        <View style={styles.links}>
+        <View style={styles.link}>
           <TouchableOpacity style={styles.LinkbackButton} onPress={() => router.push('/QrCodeScreen')}>
             <MaterialIcons name="qr-code-scanner" size={24} color="#0000ff" />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.LinkbackButton} onPress={() => router.push('/Rates')}>
-            <MaterialIcons name="currency-exchange" size={24} color="#0000ff" />
+            <Image source={require('../../assets/icons/convert-card.png')} />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.LinkbackButton} onPress={() => router.push('/Notification')}>
@@ -209,7 +214,7 @@ function Index() {
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
     >
-     <TouchableOpacity>
+     <TouchableOpacity onPress={() => router.push('/AjoSavings')}>
      <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>International Transfer</Text>
@@ -220,7 +225,8 @@ function Index() {
       <Text style={styles.featureDescription}>
         Send money to your family & friends in Africa instantly. Send to their loca bank account, Mobile wallet in less than a minute, Send from anywhere in the world.
       </Text>
-      <Text style={styles.featurePrice}>$0.00</Text>
+        <Text style={styles.featurePrice}>{renderPrice()}</Text>
+
      </TouchableOpacity>
     </ImageBackground>
     
@@ -240,7 +246,7 @@ function Index() {
       <Text style={styles.featureDescription}>
         Send money Globally. Send to Europe, UK, US instantly with low rates. Send to Local US, UK and EUR bank accounts. Transfer at Low rates
       </Text>
-      <Text style={styles.featurePrice2}>$0.00</Text>
+        <Text style={styles.featurePrice2}>{renderPrice()}</Text>
       </TouchableOpacity>
     </ImageBackground>
   </View>
@@ -262,7 +268,7 @@ function Index() {
       <Text style={styles.featureDescription}>
         Save money in hard currency (USD, EUR, GBP) and Gold. Protect your money from inflation and make a profit when the rates go high.
       </Text>
-      <Text style={styles.featurePrice3}>$0.00</Text>
+        <Text style={styles.featurePrice3}>{renderPrice()}</Text>
     </ImageBackground>
     
    <ImageBackground
@@ -280,7 +286,7 @@ function Index() {
       <Text style={styles.featureDescription}>
         Invest in stock & metals and make huge profits when the percentage on each stock go up.
       </Text>
-      <Text style={styles.featurePrice4}>$0.00</Text>
+        <Text style={styles.featurePrice4}>{renderPrice()}</Text>
     </ImageBackground>
   </View>
 
@@ -300,7 +306,7 @@ function Index() {
       <Text style={styles.featureDescription}>
         Save money in hard currency (USD, EUR, GBP) and Gold. Protect your money from inflation and make a profit when the rates go high.
       </Text>
-      <Text style={styles.featurePrice3}>$0.00</Text>
+        <Text style={styles.featurePrice3}>{renderPrice()}</Text>
     </ImageBackground>
     
    <ImageBackground
@@ -318,7 +324,7 @@ function Index() {
       <Text style={styles.featureDescription}>
         Invest in stock & metals and make huge profits when the percentage on each stock go up.
       </Text>
-      <Text style={styles.featurePrice5}>$0.00</Text>
+        <Text style={styles.featurePrice5}>{renderPrice()}</Text>
     </ImageBackground>
   </View>
 </View>
@@ -332,7 +338,9 @@ function Index() {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.modalBackground}>
+        <TouchableOpacity style={styles.modalBackground} onPress={() => {
+        setModalVisible(false);
+      }}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Select Currency</Text>
             <FlatList
@@ -341,7 +349,7 @@ function Index() {
               keyExtractor={(item) => item.code}
             />
           </View>
-        </View>
+        </TouchableOpacity>
       </Modal>
       </ScrollView>
     </View>
@@ -498,11 +506,12 @@ featuresContainer: {
     top: 5,
     left: 15,
     backgroundColor: '#0000ff',
-    borderRadius: 30,
+    borderRadius: 100,
     alignItems: 'center',
-    width: '10%',
-    padding: 5,
+    width: 50,
+    height: 50,
     marginBottom: 10,
+    justifyContent: "center"
   },
   header: {
     marginTop: 70,
@@ -513,14 +522,19 @@ featuresContainer: {
   links: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 15,
     marginRight: 15,
+    gap: 20
+  },
+  link: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   LinkbackButton: {
     alignItems: 'center',
     paddingVertical: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     borderRadius: 100,
+    
   },
   flag: {
     width: 20,

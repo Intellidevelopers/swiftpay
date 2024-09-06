@@ -3,12 +3,21 @@ import React from 'react'
 
 const transfer = () => {
   return (
-    <View>
-      <Text>transfer</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Transfer Under Development</Text>
     </View>
   )
 }
 
 export default transfer
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1
+  },
+  text:{
+    fontSize: 20
+  }
+})

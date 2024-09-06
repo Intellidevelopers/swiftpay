@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
+import ScreenshotNotification from './ScreenshotNotification';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -35,7 +36,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('/splash');
+      router.replace('/(tabs)');
     }
   }, [loaded]);
 
@@ -51,11 +52,15 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      {/* ScreenshotNotification is outside the Stack */}
+      <ScreenshotNotification />
+      
       <Stack>
         <Stack.Screen name="splash" options={{ headerShown: false }} />
         <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="onbording1" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
         <Stack.Screen name="OtpVerificationScreen" options={{ headerShown: false }} />
         <Stack.Screen name="VerifyPhone" options={{ headerShown: false }} />
@@ -67,6 +72,12 @@ function RootLayoutNav() {
         <Stack.Screen name="Rates" options={{ headerShown: false }} />
         <Stack.Screen name="AddMoney" options={{ headerShown: false }} />
         <Stack.Screen name="Notification" options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding2" options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding3" options={{ headerShown: false }} />
+        <Stack.Screen name="onboarding4" options={{ headerShown: false }} />
+        <Stack.Screen name="ScreenshotNotification" options={{ headerShown: false }} />
+        <Stack.Screen name="NoNetworkScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="AjoSavings" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );
