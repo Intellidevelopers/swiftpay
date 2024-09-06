@@ -235,7 +235,7 @@ function Index() {
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
     >
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => router.push('/AjoSavings')}>
       <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>International Transfer</Text>
@@ -251,13 +251,13 @@ function Index() {
     </ImageBackground>
   </View>
 
-  {/* Continue with other features */}
   <View style={styles.featuresCardContainer}>
     <ImageBackground
       source={require('../../assets/images/tab1.png')}
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
     >
+      <TouchableOpacity onPress={() => router.push('/AjoSavings')}>
       <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>Holdings</Text>
@@ -269,13 +269,14 @@ function Index() {
         Save money in hard currency (USD, EUR, GBP) and Gold. Protect your money from inflation and make a profit when the rates go high.
       </Text>
         <Text style={styles.featurePrice3}>{renderPrice()}</Text>
+        </TouchableOpacity>
     </ImageBackground>
     
    <ImageBackground
       source={require('../../assets/images/tab1.png')}
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
-    >
+    ><TouchableOpacity onPress={() => router.push('/AjoSavings')}>
       <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>Holdings</Text>
@@ -287,6 +288,7 @@ function Index() {
         Invest in stock & metals and make huge profits when the percentage on each stock go up.
       </Text>
         <Text style={styles.featurePrice4}>{renderPrice()}</Text>
+        </TouchableOpacity>
     </ImageBackground>
   </View>
 
@@ -296,6 +298,7 @@ function Index() {
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
     >
+      <TouchableOpacity onPress={() => router.push('/AjoSavings')}>
       <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>Ajo Savings</Text>
@@ -307,6 +310,7 @@ function Index() {
         Save money in hard currency (USD, EUR, GBP) and Gold. Protect your money from inflation and make a profit when the rates go high.
       </Text>
         <Text style={styles.featurePrice3}>{renderPrice()}</Text>
+        </TouchableOpacity>
     </ImageBackground>
     
    <ImageBackground
@@ -314,6 +318,7 @@ function Index() {
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
     >
+      <TouchableOpacity onPress={() => router.push('/AjoSavings')}>
       <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>Ajo Contribution</Text>
@@ -325,6 +330,7 @@ function Index() {
         Invest in stock & metals and make huge profits when the percentage on each stock go up.
       </Text>
         <Text style={styles.featurePrice5}>{renderPrice()}</Text>
+        </TouchableOpacity>
     </ImageBackground>
   </View>
 </View>
