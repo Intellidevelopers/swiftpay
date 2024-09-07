@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
@@ -28,6 +28,7 @@ const cards = () => {
 
       <Text style={styles.title}>Card Order</Text>
 
+      <ScrollView  showsVerticalScrollIndicator={false}>
       <View style={styles.cardContainer}>
         <Image source={require('../../assets/images/card.png')} style={styles.cardImage} />
       </View>
@@ -64,6 +65,7 @@ const cards = () => {
       <TouchableOpacity style={styles.getNowButton}>
         <Text style={styles.getNowButtonText}>Get Now</Text>
       </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };

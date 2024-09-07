@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
     marginBottom: -10
   },
   moneyExchangeCard: {
-    width: '97%',
+    width: "100%",
     height: 150,
     margin: 20,
     justifyContent: 'center',
@@ -398,33 +398,33 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: 'hidden',
     alignSelf: "center",
-    left: 6,
+    padding: 20,
+    
   },
   moneyExchangeTitle: {
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
     alignSelf: "flex-start",
-    left: 22
   },
   moneyExchangeSubtitle: {
     color: '#fff',
     fontSize: 16,
     marginVertical: 10,
+    alignSelf: "flex-start",
+
   },
   exchangeButtonsContainer: {
     flexDirection: 'row',
     alignSelf: "flex-start",
-    left: 10
+    gap: 40
   },
   exchangeButton: {
     backgroundColor: '#2E2380',
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     borderRadius: 10,
-    marginHorizontal: 10,
     flexDirection: "row",
-    gap: 12
   },
   shadow: {
     shadowColor: '#000',
@@ -476,35 +476,35 @@ featuresContainer: {
   featurePrice: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#5a67f2',
+    color: '#000',
     marginTop: -10,
     alignSelf: "center"
   },
   featurePrice2: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#5a67f2',
+    color: '#000',
     marginTop: 18,
     alignSelf: "center"
   },
   featurePrice3: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#5a67f2',
+    color: '#000',
     marginTop: 3,
     alignSelf: "center"
   },
   featurePrice4: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#5a67f2',
+    color: '#000',
     marginTop: 30,
     alignSelf: "center"
   },
   featurePrice5: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#5a67f2',
+    color: '#000',
     marginTop: 47,
     alignSelf: "center"
   },
