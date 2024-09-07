@@ -112,7 +112,7 @@ function Index() {
             <MaterialIcons name="qr-code-scanner" size={24} color="#0000ff" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.LinkbackButton} onPress={() => router.push('/Rates')}>
+          <TouchableOpacity style={styles.LinkbackButton} onPress={() => router.push('/Exchange')}>
             <Image source={require('../../assets/icons/convert-card.png')} />
           </TouchableOpacity>
 
@@ -214,7 +214,7 @@ function Index() {
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
     >
-     <TouchableOpacity onPress={() => router.push('/AjoSavings')}>
+     <TouchableOpacity onPress={() => router.push('/Africa')}>
      <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>International Transfer</Text>
@@ -235,7 +235,7 @@ function Index() {
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
     >
-      <TouchableOpacity onPress={() => router.push('/AjoSavings')}>
+      <TouchableOpacity onPress={() => router.push('/Abroad')}>
       <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>International Transfer</Text>
@@ -257,7 +257,7 @@ function Index() {
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
     >
-      <TouchableOpacity onPress={() => router.push('/AjoSavings')}>
+      <TouchableOpacity onPress={() => router.push('/HardCurrency')}>
       <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>Holdings</Text>
@@ -276,7 +276,7 @@ function Index() {
       source={require('../../assets/images/tab1.png')}
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
-    ><TouchableOpacity onPress={() => router.push('/AjoSavings')}>
+    ><TouchableOpacity onPress={() => router.push('/Stock')}>
       <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>Holdings</Text>
@@ -318,7 +318,7 @@ function Index() {
       style={styles.featureCard}
       resizeMode="cover"  // Added this line
     >
-      <TouchableOpacity onPress={() => router.push('/AjoSavings')}>
+      <TouchableOpacity onPress={() => router.push('/AjoContribution')}>
       <View style={styles.headerCard}>
         <MaterialIcons name="currency-exchange" size={18} color="#0000ff" />
         <Text style={styles.featureTitle}>Ajo Contribution</Text>

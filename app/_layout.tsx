@@ -78,6 +78,13 @@ function RootLayoutNav() {
         <Stack.Screen name="ScreenshotNotification" options={{ headerShown: false }} />
         <Stack.Screen name="NoNetworkScreen" options={{ headerShown: false }} />
         <Stack.Screen name="AjoSavings" options={{ headerShown: false }} />
+        <Stack.Screen name="Africa" options={{ headerShown: false }} />
+        <Stack.Screen name="Abroad" options={{ headerShown: false }} />
+        <Stack.Screen name="HardCurrency" options={{ headerShown: false }} />
+        <Stack.Screen name="Stock" options={{ headerShown: false }} />
+        <Stack.Screen name="AjoContribution" options={{ headerShown: false }} />
+        <Stack.Screen name="Exchange" options={{ headerShown: false }} />
+        <Stack.Screen name="TradingScreen" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );
