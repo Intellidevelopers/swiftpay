@@ -1,19 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Pressable, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { BottomSheet } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useLocalSearchParams } from 'expo-router';
-import Toast from 'react-native-toast-message';
 
-
-const Exchange = () => {
+const BuyBtc = () => {
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
   const [isSuccessVisible, setIsSuccessVisible] = useState(false);
   const [isBalanceHidden, setIsBalanceHidden] = useState(false);
-  const { cryptoName, price, quantity, limits } = useLocalSearchParams();
-
 
   const toggleBalanceVisibility = () => {
     setIsBalanceHidden(!isBalanceHidden);
@@ -26,53 +21,6 @@ const Exchange = () => {
   const handleContinue = () => {
     setIsPreviewVisible(false); // Hide the preview bottom sheet
     setIsSuccessVisible(true); // Show the success bottom sheet
-    if (otp.includes('')) {
-      Toast.show({
-        type: 'error',
-        text1: 'Incomplete OTP',
-        text2: 'Please fill in all fields of the OTP.',
-        position: 'bottom',
-      });
-      return;
-    }
-  };
-
-  const [otp, setOtp] = useState(['', '', '', '']);
-  const inputRefs = useRef<(TextInput | null)[]>([]);
-
-  const handleOtpChange = (text: string, index: number) => {
-    // Set OTP value at the current index
-    const newOtp = [...otp];
-    newOtp[index] = text;
-    setOtp(newOtp);
-
-    // Move to the next input
-    if (text && index < 4) {
-      inputRefs.current[index + 1]?.focus();
-    }
-  };
-
-  const handleKeyPress = (e: any, index: number) => {
-    if (e.nativeEvent.key === 'Backspace' && otp[index] === '') {
-      // Move to the previous input
-      if (index > 0) {
-        inputRefs.current[index - 1]?.focus();
-      }
-    }
-  };
-
-  const handleVerifyPress = () => {
-    if (otp.includes('')) {
-      Toast.show({
-        type: 'error',
-        text1: 'Incomplete OTP',
-        text2: 'Please fill in all fields of the OTP.',
-        position: 'bottom',
-      });
-      return;
-    }
-
-    router.push('/TransactionPinSetup');
   };
 
   return (
@@ -82,176 +30,150 @@ const Exchange = () => {
           <TouchableOpacity style={styles.backButton} onPress={() => router.push('/(tabs)')}>
             <AntDesign name="arrowleft" size={24} color="#000" />
           </TouchableOpacity>
-          <Text style={styles.headerText}>Bureau De Change</Text>
+          <Text style={styles.headerText}>Buy USDT</Text>
           <View style={styles.placeholder} />
         </View>
 
         <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
           {/* Price Section */}
-         <View style={styles.sectionCard}>
           <View style={styles.priceSection}>
-              <Text style={styles.priceLabel}>Price</Text>
-              <Text style={styles.priceValue}>{price}</Text>
-            </View>
+            <Text style={styles.priceLabel}>Price</Text>
+            <Text style={styles.priceValue}>1445 NGN</Text>
+          </View>
 
-            {/* Quantity, Payment Method, Network, Duration */}
-            <View style={styles.detailsContainer}>
-              <Text style={styles.detailText}>Quantity</Text>
-              <Text style={styles.detailValue}>4.5673 USDT</Text>
+          {/* Quantity, Payment Method, Network, Duration */}
+          <View style={styles.detailsContainer}>
+            <Text style={styles.detailText}>Quantity</Text>
+            <Text style={styles.detailValue}>4.5673 USDT</Text>
+          </View>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.detailText}>Payment Method</Text>
+            <View style={styles.leftLine}>
+              <Text style={styles.balanceName}>Swiftpay Balance</Text>
             </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.detailText}>Payment Method</Text>
-              <View style={styles.leftLine}>
-                <Text style={styles.balanceName}>Swiftpay Balance</Text>
-              </View>
-            </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.detailText}>Limits</Text>
-              <Text style={styles.detailValue}>{limits}</Text>
-            </View>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.detailText}>Payment Duration</Text>
-              <Text style={styles.detailValue}>15Min(s)</Text>
-            </View>
-         </View>
+          </View>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.detailText}>Network</Text>
+            <Text style={styles.detailValue}>(BEP20)</Text>
+          </View>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.detailText}>Payment Duration</Text>
+            <Text style={styles.detailValue}>15Min(s)</Text>
+          </View>
 
-         
+          {/* Balance and Amount Section */}
+          <View style={styles.balanceSection}>
+            <View style={styles.row}>
+              <Text style={styles.balanceLabel}>Swiftpay Balance</Text>
+              <Text style={styles.balanceAmount}>
+                {isBalanceHidden ? '$ ******' : '$ 2,345.98'}
+              </Text>
+            </View>
+            <TouchableOpacity onPress={toggleBalanceVisibility}>
+              <AntDesign name={isBalanceHidden ? 'eyeo' : 'eye'} size={20} color="#666" />
+            </TouchableOpacity>
+          </View>
 
-          <Text style={styles.headline}>Transaction Information</Text>
+          <Text style={styles.headline}>With Swiftpay Balance</Text>
+
+          {/* Info Note */}
           <Text style={styles.note}>
-            Note: Ensure you fill in the right bank details, as we would not be held liable for any asset loss due to wrong info.
+            <AntDesign name='exclamationcircleo'/> Note: Ensure you input the right info, as we would not be held liable for any loss of asset.
           </Text>
 
           {/* Address Input */}
-          <Text style={styles.paymentText}>Amount in USD</Text>
+          <Text style={styles.paymentText}>Address</Text>
           <TextInput 
             style={styles.input}
-            placeholder="$250"
+            placeholder="Address"
             placeholderTextColor="#666"
           />
-
-          <Text style={styles.paymentText}>Amount to be paid (NGN)</Text>
-          <TextInput 
-            style={styles.input}
-            placeholder="120,975"
-            placeholderTextColor="#666"
-          />
-          
-          <View style={styles.estimate}>
-           <View>
-           <Text style={styles.estTitle}>SwiftPay Fees:</Text>
-           <Text style={styles.subTitle}>I will Receive</Text>
-           </View>
-            <Text style={styles.est}>$1.34</Text>
-          </View>
-
-          <Text style={styles.headline}>Receiver Details</Text>
-          <Text style={styles.note}>
-            Note: Ensure your Bank supports USD transfer Recommend Bank - Domiciliary Account (Dollar)
-          </Text>
 
           {/* Payment Section */}
-          <Text style={styles.paymentText}>Receiver Account Number</Text>
+          <Text style={styles.paymentText}>Network</Text>
           <TextInput 
             style={styles.input}
-            placeholder="Enter Your Account Number"
+            placeholder="BSC (BEP20)"
             placeholderTextColor="#666"
           />
 
-          <Text style={styles.paymentText}>Bank Name</Text>
-          <TextInput 
-            style={styles.input}
-            placeholder="Enter Bank Name"
-            placeholderTextColor="#666"
-          />
+          <Text style={styles.paymentText}>Amount</Text>
+          {/* Input with "NGN" and "All" Pressable */}
+          <View style={styles.inputContainer}>
+            <TextInput 
+              style={[styles.flexInput]}
+              placeholder="Please enter any amount"
+              placeholderTextColor="#666"
+              keyboardType='numeric'
+            />
+            <Text style={styles.currencyText}>NGN</Text>
+            <Pressable onPress={() => console.log('All pressed')}>
+              <Text style={styles.pressableText}>All</Text>
+            </Pressable>
+          </View>
 
-          <Text style={styles.paymentText}>Account Name</Text>
-          <TextInput 
-            style={styles.input}
-            placeholder="Enter Accoun Name"
-            placeholderTextColor="#666"
-          />
+          <View style={styles.estimate}>
+            <Text style={styles.estTitle}>I will Receive</Text>
+            <Text style={styles.est}>-- USDT</Text>
+          </View>
 
           {/* Buy Button */}
           <TouchableOpacity style={styles.buyButton} onPress={handlePreview}>
-            <Text style={styles.buyButtonText}>Buy Now</Text>
+            <Text style={styles.buyButtonText}>Buy</Text>
           </TouchableOpacity>
+
+          {/* Note at the Bottom */}
+          <Text style={styles.noteBottom}>The coin you Buy would be sent to your wallet Address above.</Text>
         </ScrollView>
 
         {/* Bottom Sheet for Preview */}
         <BottomSheet isVisible={isPreviewVisible} onBackdropPress={() => setIsPreviewVisible(false)}>
           <View style={styles.bottomSheetContent}>
             <View style={styles.bottomSheetHeader}>
-              <Text style={styles.bottomSheetTitle}>Order Summary</Text>
+              <Text style={styles.bottomSheetTitle}>Order Preview</Text>
               <TouchableOpacity onPress={() => setIsPreviewVisible(false)}>
                 <AntDesign name='closecircleo' size={20} color={'red'} style={styles.icon} />
               </TouchableOpacity>
             </View>
 
-            <View style={styles.successBottomSheetContainer}>
-                <Text style={styles.subText}>Buy USDT</Text>
-                <View style={styles.flex}>
-                <Text style={styles.successBottomSheetText}>Amount</Text>
-                <Text style={styles.successBottomSheetTextgreen}>34,869.97 NGN</Text>
-                </View>
-                <View style={styles.flex}>
-                <Text style={styles.successBottomSheetText}>Price</Text>
-                <Text style={styles.successBottomSheetText}>1568.00 NGN</Text>
-                </View>
-                <View style={styles.flex}>
-                <Text style={styles.successBottomSheetText}>Total Quantity</Text>
-                <Text style={styles.successBottomSheetText}>12.0000 USDT</Text>
-                </View>
-                <View style={styles.flex}>
-                <Text style={styles.successBottomSheetText}>Transaction fees</Text>
-                <Text style={styles.successBottomSheetText}>$1.76</Text>
-                </View>
-                <View style={styles.flex}>
-                <Text style={styles.successBottomSheetText}>Order No.</Text>
-                <Text style={styles.successBottomSheetText}>12345678908765 <AntDesign name='copy1'/></Text>
-                </View>
+            <Text style={styles.amount}>120.87 USDT</Text>
 
-                <View style={styles.flex}>
-                <Text style={styles.successBottomSheetText}>Order time</Text>
-                <Text style={styles.successBottomSheetText}>2024-03-26 17:23:45 <AntDesign name='copy1'/></Text>
-                </View>
+            <View style={styles.flex}>
+              <Text style={styles.bottomSheetText}>Price:</Text>
+              <Text style={styles.bottomSheetText}>1445 NGN</Text>
             </View>
-            <View style={styles.pinTextContainer}>
-              <Text style={styles.pinTextTitle}>Enter Pin</Text>
-              <Text style={styles.pinTextSub}>Enter pin to complete transaction</Text>
+            <View style={styles.flex}>
+              <Text style={styles.bottomSheetText}>Quantity:</Text>
+              <Text style={styles.bottomSheetText}>4.5673 USDT</Text>
             </View>
-
-            <View style={styles.otpContainer}>
-              {otp.map((digit, index) => (
-                <TextInput
-                  key={index}
-                  ref={(ref) => (inputRefs.current[index] = ref)}
-                  style={styles.otpInput}
-                  keyboardType="number-pad"
-                  maxLength={1}
-                  value={digit}
-                  onChangeText={(text) => handleOtpChange(text, index)}
-                  onKeyPress={(e) => handleKeyPress(e, index)}
-                  autoFocus={index === 0} // Auto-focus the first input
-                />
-              ))}
+            <View style={styles.flex}>
+              <Text style={styles.bottomSheetText}>Payment Method:</Text>
+              <Text style={styles.bottomSheetText}>Swiftpay Balance</Text>
+            </View>
+            <View style={styles.flex}>
+              <Text style={styles.bottomSheetText}>Network:</Text>
+              <Text style={styles.bottomSheetText}>BEP20</Text>
+            </View>
+            <View style={styles.flex}>
+              <Text style={styles.bottomSheetText}>Payment Duration:</Text>
+              <Text style={styles.bottomSheetText}>15Min(s)</Text>
             </View>
             <TouchableOpacity style={styles.buyButton} onPress={handleContinue}>
-            <Text style={styles.buyButtonText}>Complete Purchase</Text>
-          </TouchableOpacity>
+              <Text style={styles.buyButtonText}>Continue</Text>
+            </TouchableOpacity>
           </View>
         </BottomSheet>
 
-        <BottomSheet isVisible={isSuccessVisible} onBackdropPress={() => router.push('/SellTrading')}>
+        {/* Bottom Sheet for Success */}
+        <BottomSheet isVisible={isSuccessVisible} onBackdropPress={() => setIsSuccessVisible(false)}>
           <View style={styles.bottomSheetContent}>
-                <TouchableOpacity onPress={() => router.push('/SellTrading')}>
+                <TouchableOpacity onPress={() => setIsSuccessVisible(false)}>
                 <AntDesign name='closecircleo' size={20} color={'red'} style={styles.icon} />
               </TouchableOpacity>
               <Image source={require('../assets/icons/success.png')} style={styles.logo} />
               
 
-            <Text style={styles.successBottomSheetHeader}>Your Sell Order has been completed</Text>
-            <Text style={styles.subTitleText}>Buy order for $124 has been completed and sent to your Swiftpay Wallet</Text>
+            <Text style={styles.successBottomSheetHeader}>Your order has been completed</Text>
             <View style={styles.successBottomSheetContainer}>
                 <Text style={styles.subText}>Buy USDT</Text>
                 <View style={styles.flex}>
@@ -344,7 +266,7 @@ const styles = StyleSheet.create({
   detailValue: {
     fontSize: 16,
     fontWeight: 'medium',
-    color: '#666',
+    color: '#000',
   },
   balanceSection: {
     flexDirection: 'row',
@@ -437,13 +359,13 @@ const styles = StyleSheet.create({
   },
   est: {
     fontSize: 16,
-    color: "#000",
+    color: "#999",
     fontWeight: "700",
   },
   estTitle: {
     fontSize: 16,
-    color: "#555",
-    fontWeight: "500",
+    color: "#666",
+    fontWeight: "400",
   },
   leftLine: {
     borderLeftWidth: 3,
@@ -458,9 +380,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   headline: {
-    marginBottom: 10,
+    borderBottomWidth: 3,
+    borderBottomColor: '#1400fb',
+    borderRadius: 2,
+    marginBottom: 20,
+    width: 160,
     fontWeight: "500",
-    fontSize: 20,
+    fontSize: 16,
   },
   bottomSheetContent: {
     padding: 20,
@@ -494,6 +420,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
     paddingBottom: 10
   },
   icon: {
@@ -519,15 +447,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     textAlign: "center",
-    marginBottom: 10
+    marginBottom: 30
   },
   successBottomSheetContainer:{
     borderWidth: 1,
     padding: 10,
     borderColor: "#ddd",
     backgroundColor: "#fdfdfd",
-    borderRadius: 10,
-    marginBottom: 20
+    borderRadius: 10
   },
   subText:{
     fontWeight: "700",
@@ -536,52 +463,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ddd",
     paddingBottom: 10,
     marginBottom: 10
-  },
-  sectionCard:{
-    backgroundColor: "#f2f2f2",
-    padding: 8,
-    borderRadius: 15,
-    marginBottom: 20
-  },
-  subTitle:{
-    color: "#666"
-  },
-  pinTextContainer:{
-    flexDirection: "column",
-  },
-  pinTextTitle:{
-    fontSize: 18,
-    fontWeight: "600"
-  },
-  pinTextSub:{
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#888",
-    marginBottom: 20
-  },
-  otpContainer: {
-    flexDirection: 'row',
-    marginBottom: 30,
-    gap: 15
-  },
-  otpInput: {
-    width: 50,
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#999', // Success green color for the border
-    borderRadius: 8,
-    textAlign: 'center',
-    fontSize: 30,
-    color: '#000',
-    fontWeight: "900"
-  },
-  subTitleText:{
-    color: "#888",
-    textAlign: "center",
-    fontSize: 13,
-    marginBottom: 30
-
   }
 });
 
-export default Exchange;
+export default BuyBtc;

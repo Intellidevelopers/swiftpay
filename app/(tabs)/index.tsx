@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,7 @@ import {
   FlatList,
   RefreshControl,
   Pressable,
+  Animated,
 } from 'react-native';
 import {
   AntDesign,
@@ -49,6 +50,43 @@ function Index() {
   const [convertedBalance, setConvertedBalance] = useState(balance);
   const [exchangeRate, setExchangeRate] = useState(1);
   const [featurePricesVisible, setFeaturePricesVisible] = useState(true);
+
+ // Define your subtitles
+ const subtitles = [
+  "Buy & Sell Cash and Cryptocurrency Swiftly",
+  "Secure and Fast Transactions",
+  "Exchange Rates You Can Trust",
+];
+
+// State to hold the current subtitle index
+const [currentSubtitleIndex, setCurrentSubtitleIndex] = useState(0);
+// Animated value for fading effect
+const fadeAnim = useRef(new Animated.Value(1)).current;
+
+useEffect(() => {
+  // Interval to change subtitle every 3 seconds
+  const intervalId = setInterval(() => {
+    // Start fade-out animation
+    Animated.timing(fadeAnim, {
+      toValue: 0, // Fade out
+      duration: 500, // Duration for fade-out
+      useNativeDriver: true,
+    }).start(() => {
+      // Update the subtitle index after fade-out
+      setCurrentSubtitleIndex((prevIndex) => (prevIndex + 1) % subtitles.length);
+      
+      // Start fade-in animation
+      Animated.timing(fadeAnim, {
+        toValue: 1, // Fade in
+        duration: 500, // Duration for fade-in
+        useNativeDriver: true,
+      }).start();
+    });
+  }, 4000);
+
+  // Cleanup interval on component unmount
+  return () => clearInterval(intervalId);
+}, [fadeAnim]);
 
   useEffect(() => {
     if (selectedCountry.code !== 'USD') {
@@ -112,7 +150,7 @@ function Index() {
             <MaterialIcons name="qr-code-scanner" size={24} color="#0000ff" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.LinkbackButton} onPress={() => router.push('/Exchange')}>
+          <TouchableOpacity style={styles.LinkbackButton} onPress={() => router.push('/SellTrading')}>
             <Image source={require('../../assets/icons/convert-card.png')} />
           </TouchableOpacity>
 
@@ -186,23 +224,41 @@ function Index() {
       </View>
 
       {/* Money Exchange Section */}
-      <ImageBackground
-        source={require('../../assets/images/money-exchange-bg.png')}
-        style={styles.moneyExchangeCard}
-      >
-        <Text style={styles.moneyExchangeTitle}>Money Exchange</Text>
-        <Text style={styles.moneyExchangeSubtitle}>Buy & Sell Cash and Cryptocurrency Swiftly</Text>
-        <View style={styles.exchangeButtonsContainer}>
-          <TouchableOpacity style={[styles.exchangeButton, styles.shadow]}>
+      <View style={styles.cardContainer}>
+  <ImageBackground
+    source={require('../../assets/images/money-exchange-bg.png')}
+    style={styles.moneyExchangeCard}
+  >
+    <View style={styles.moneyExchangeCardLayer}>
+      <Text style={styles.moneyExchangeTitle}>Money Exchange</Text>
+
+      {/* Fixed width container for animated text */}
+      <View style={styles.subtitleContainer}>
+        <Animated.Text style={[styles.moneyExchangeSubtitle, { opacity: fadeAnim }]}>
+          {subtitles[currentSubtitleIndex]}
+        </Animated.Text>
+      </View>
+
+      <View style={styles.exchangeButtonsContainer}>
+        <TouchableOpacity
+          style={[styles.exchangeButton, styles.shadow]}
+          onPress={() => router.push('/BuyCryptoScreen')}
+        >
           <Feather name="arrow-down" size={24} color="#45bf55" />
-            <Text style={styles.buttonText}>Buy Now</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.exchangeButton, styles.shadow]}>
+          <Text style={styles.buttonText}>Buy Now</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.exchangeButton, styles.shadow]}
+          onPress={() => router.push('/SellCryptoScreen')}
+        >
           <Feather name="arrow-up" size={24} color="red" />
-            <Text style={styles.buttonText}>Sell Now</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
+          <Text style={styles.buttonText}>Sell Now</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </ImageBackground>
+</View>
+
 
       {/* Features Section */}
      {/* Features Section */}
@@ -331,7 +387,7 @@ function Index() {
       </Text>
         <Text style={styles.featurePrice5}>{renderPrice()}</Text>
         </TouchableOpacity>
-    </ImageBackground>
+    </ImageBackground >
   </View>
 </View>
 
@@ -366,7 +422,7 @@ function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#ffffff',
   },
   balanceContainer: {
     padding: 20,
@@ -382,7 +438,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     alignSelf: 'flex-start',
-    flex: 1
+    flex: 1,
+    marginRight: 10
   },
   navIconsContainer: {
     flexDirection: 'row',
@@ -398,8 +455,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: 'hidden',
     alignSelf: "center",
-    padding: 20,
-    
+  },
+  moneyExchangeCardLayer: {
   },
   moneyExchangeTitle: {
     color: '#fff',
@@ -422,9 +479,10 @@ const styles = StyleSheet.create({
   exchangeButton: {
     backgroundColor: '#2E2380',
     paddingVertical: 10,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     borderRadius: 10,
     flexDirection: "row",
+    gap: 5
   },
   shadow: {
     shadowColor: '#000',
@@ -723,7 +781,17 @@ featuresContainer: {
     marginBottom: -10,
     fontWeight: "700",
     marginTop: 5
-  }
+  },
+  cardContainer:{
+    width: '95%',
+    alignSelf: "center"
+  },
+  subtitleContainer: {
+    width: '100%',  // You can adjust this to be a fixed width or percentage based on your need
+    minHeight: 20,  // Set a minimum height to prevent reflow
+    justifyContent: 'center',  // Center the animated text if necessary
+    overflow: 'hidden',  // Hide overflow text if needed
+  },
 });
 
 export default Index;

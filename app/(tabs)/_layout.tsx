@@ -6,6 +6,7 @@ import { Pressable } from 'react-native';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -32,6 +33,7 @@ export default function TabLayout() {
         name="index"
         options={{
           headerShown: false,
+          title: 'SwiftPay',
           tabBarIcon: ({ color }) => <TabBarIcon name="logo-skype" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -71,6 +73,14 @@ export default function TabLayout() {
           headerShown: false,
           title: 'Bills',
           tabBarIcon: ({ color }) => <TabBarIcon name="receipt-sharp" color={color} />,
+        }}
+      />
+         <Tabs.Screen
+        name="transactions"
+        options={{
+          headerShown: false,
+          title: 'Transactions',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="bank-transfer" size={40} color={color} />,
         }}
       />
       <Tabs.Screen

@@ -36,7 +36,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('/(tabs)');
+      router.replace('./splash');
     }
   }, [loaded]);
 
@@ -84,7 +84,29 @@ function RootLayoutNav() {
         <Stack.Screen name="Stock" options={{ headerShown: false }} />
         <Stack.Screen name="AjoContribution" options={{ headerShown: false }} />
         <Stack.Screen name="Exchange" options={{ headerShown: false }} />
-        <Stack.Screen name="TradingScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="SellTrading" options={{ headerShown: false }} />
+        <Stack.Screen name="BuyTrading" options={{ headerShown: false }} />
+        <Stack.Screen name="BuyCryptoScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="SellCryptoScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="SellBtc" options={{ headerShown: false }} />
+        <Stack.Screen name="BuyBtc" options={{ headerShown: false }} />
+        <Stack.Screen name="BuyEthereum" options={{ headerShown: false }} />
+        <Stack.Screen name="CompletePaymentScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="BureauDeChange" options={{ headerShown: false }} />
+        <Stack.Screen name="SelectCountry" options={{ headerShown: false }} />
+        <Stack.Screen name="SelectGiftCard" options={{ headerShown: false }} />
+        <Stack.Screen name="CardScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="PaymentOption" options={{ headerShown: false }} />
+        <Stack.Screen name="CreditCard" options={{ headerShown: false }} />
+        <Stack.Screen name="PaymentVerification" options={{ headerShown: false }} />
+        <Stack.Screen name="PaymentVerified" options={{ headerShown: false }} />
+        <Stack.Screen name="SellGiftcard" options={{ headerShown: false }} />
+        <Stack.Screen name="TradeSummary" options={{ headerShown: false }} />
+        <Stack.Screen name="GiftcardSuccess" options={{ headerShown: false }} />
+        <Stack.Screen name="TransferPin" options={{ headerShown: false }} />
+        <Stack.Screen name="TransferToSwiftpay" options={{ headerShown: false }} />
+        <Stack.Screen name="Receipt" options={{ headerShown: false }} />
+        <Stack.Screen name="Beneficiaries" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );
