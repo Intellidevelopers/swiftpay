@@ -5,7 +5,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Image,
 import { BottomSheet } from '@rneui/themed';
 // Import the BottomSheet component from react-native-elements
 
-const TransferToSwiftpay: React.FC = () => {
+const AllMultipleBanks: React.FC = () => {
   const [swiftPayTag, setSwiftPayTag] = useState('');
   const [recipientName, setRecipientName] = useState('');
   const [amount, setAmount] = useState('');
@@ -71,128 +71,46 @@ const TransferToSwiftpay: React.FC = () => {
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={24} color="#000" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Transfer to Swiftpay Account</Text>
-        <Text style={styles.headerText2}>History</Text>
+        <View style={styles.addButtonContainer}>
+            <TouchableOpacity style={styles.addButton} onPress={() => router.push('/MultipleBankTransfer')}>
+            <AntDesign name="plus" size={24} color="#fff" />
+            </TouchableOpacity>
+            <Text style={styles.headerText}>Add New Account Number</Text>
+        </View>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.notice}>
-          <Image source={require('../assets/icons/strike.png')} style={styles.icon} />
-          <Text style={styles.note}>Transfers made to swiftpay accounts are free</Text>
-        </View>
-        <Text style={styles.Subtitle}>Transaction Details</Text>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Swiftpay Tag</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="@Josiah67"
-            value={swiftPayTag}
-            onChangeText={setSwiftPayTag}
-          />
-          <Text style={styles.label}>Recipient Name</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="John Doe"
-            value={recipientName}
-            onChangeText={setRecipientName}
-          />
-          <Text style={styles.label}>Amount</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="10,000"
-            value={amount}
-            keyboardType="numeric"
-            onChangeText={setAmount}
-          />
-          <Text style={styles.label}>Remark</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Part payment"
-            value={remark}
-            onChangeText={setRemark}
-          />
-        </View>
-
-        {/* Tab Switcher */}
-        <View style={styles.recentContainer}>
-          <View style={styles.recentHeader}>
-            <View style={styles.recentTopbar}>
-              <TouchableOpacity
-                style={selectedTab === 'Recent' ? styles.activeTabButton : null}
-                onPress={() => setSelectedTab('Recent')}
-              >
-                <Text style={selectedTab === 'Recent' ? styles.activeTabText : styles.tabText}>Recent</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={selectedTab === 'Favorites' ? styles.activeTabButton : null}
-                onPress={() => setSelectedTab('Favorites')}
-              >
-                <Text style={selectedTab === 'Favorites' ? styles.activeTabText : styles.tabText}>Favorites</Text>
-              </TouchableOpacity>
+        <View style={styles.users}>
+            <Image source={require('../assets/banks/uba.png')} style={styles.user} />
+            <View>
+                <Text style={styles.name}>Jane Doe</Text>
+                <Text style={styles.account}>XXXXX 6789 UBA</Text>
             </View>
-            <TouchableOpacity>
-              <AntDesign name='search1' size={20} color={'#888'} />
-            </TouchableOpacity>
-          </View>
-
-          {/* Conditional Rendering Based on Selected Tab */}
-          {selectedTab === 'Recent' ? (
-            // Recent Tab Content
-            <>
-              <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.users}>
-                  <Image source={require('../assets/images/user1.png')} style={styles.user} />
-                  <View>
-                    <Text style={styles.name}>Segun Arinze</Text>
-                    <Text style={styles.account}>098654355 Wema Bank</Text>
-                  </View>
-                </View>
-                <View style={styles.users}>
-                  <Image source={require('../assets/images/user2.png')} style={styles.user} />
-                  <View>
-                    <Text style={styles.name}>Segun Arinze</Text>
-                    <Text style={styles.account}>098654355 Wema Bank</Text>
-                  </View>
-                </View>
-                <TouchableOpacity style={styles.viewMore} onPress={() => router.push('/Beneficiaries')}>
-                  <Text style={styles.viewMoreText}>View more</Text>
-                </TouchableOpacity>
-              </ScrollView>
-            </>
-          ) : (
-            // Favorites Tab Content
-            <>
-              <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={styles.users}>
-                  <Image source={require('../assets/images/user2.png')} style={styles.user} />
-                  <View>
-                    <Text style={styles.name}>Jane Doe</Text>
-                    <Text style={styles.account}>123456789 GTBank</Text>
-                  </View>
-                </View>
-                <View style={styles.users}>
-                  <Image source={require('../assets/images/user1.png')} style={styles.user} />
-                  <View>
-                    <Text style={styles.name}>Michael Smith</Text>
-                    <Text style={styles.account}>987654321 Access Bank</Text>
-                  </View>
-                </View>
-                <TouchableOpacity style={styles.viewMore} onPress={() => router.push('/Beneficiaries')}>
-                  <Text style={styles.viewMoreText}>View more</Text>
-                </TouchableOpacity>
-              </ScrollView>
-            </>
-          )}
+            <View style={styles.status}>
+                <Text style={styles.statusText}>Added</Text>
+                <AntDesign name='closecircle' color={'red'} size={20}/>
+            </View>
+        </View>
+        <View style={styles.users}>
+            <Image source={require('../assets/banks/fcmb.png')} style={styles.user} />
+            <View>
+                <Text style={styles.name}>Michael Smith</Text>
+                <Text style={styles.account}>XXXXX 4321 FCMB</Text>
+            </View>
+            <View style={styles.status}>
+                <Text style={styles.statusText}>Added</Text>
+                <AntDesign name='closecircle' color={'red'} size={20}/>
+            </View>
         </View>
 
-        <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-          <Text style={styles.nextButtonText}>Next</Text>
+        <Text style={styles.total}>Total Amount: N1, 234,987.00</Text>
+        <Text style={styles.subtotal}>Multiple Transfer Fees: N20.23</Text>
+        <TouchableOpacity style={styles.nextButton} onPress={() => router.push('/MultipleTransferSummary')}>
+          <Text style={styles.nextButtonText}>Send</Text>
         </TouchableOpacity>
       </ScrollView>
 
       {/* Payment Summary Bottom Sheet */}
-      <BottomSheet isVisible={isPaymentSummaryVisible} onBackdropPress={() => setIsPaymentSummaryVisible(false)}>
+      {/* <BottomSheet isVisible={isPaymentSummaryVisible} onBackdropPress={() => setIsPaymentSummaryVisible(false)}>
         <View style={styles.bottomSheetContent}>
         <View style={styles.bottomSheetHeader}>
               <Text style={styles.bottomSheetTitle}>Complete Payment</Text>
@@ -236,7 +154,7 @@ const TransferToSwiftpay: React.FC = () => {
             <Text style={styles.nextButtonText}>Pay</Text>
           </TouchableOpacity>
         </View>
-      </BottomSheet>
+      </BottomSheet> */}
 
       {/* Transaction PIN Bottom Sheet */}
       <BottomSheet isVisible={isTransactionPinVisible} onBackdropPress={() => setIsTransactionPinVisible(false)}>
@@ -272,7 +190,7 @@ const TransferToSwiftpay: React.FC = () => {
       </BottomSheet>
 
       {/* Success Bottom Sheet */}
-      <BottomSheet isVisible={isSuccessVisible} onBackdropPress={() => setIsSuccessVisible(false)}>
+      {/* <BottomSheet isVisible={isSuccessVisible} onBackdropPress={() => setIsSuccessVisible(false)}>
         <View style={styles.bottomSheetContent}>
           
           <Image source={require('../assets/icons/success.png')} style={styles.logo} />
@@ -283,7 +201,7 @@ const TransferToSwiftpay: React.FC = () => {
             <Text style={styles.nextButtonText}>View Receipt</Text>
           </TouchableOpacity>
         </View>
-      </BottomSheet>
+      </BottomSheet> */}
     </SafeAreaView>
   );
 };
@@ -333,8 +251,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 30,
     marginTop: 20
   },
   backButton: {
@@ -343,8 +260,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   headerText: {
-    fontSize: 15,
-    fontWeight: '700',
+    fontSize: 12,
+    fontWeight: '400',
     textAlign: 'center',
   },
   headerText2: {
@@ -402,7 +319,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
-    marginBottom: 25
+    marginBottom: 15,
+    backgroundColor: "#f5f5f5",
+    padding: 10,
+    borderRadius: 10,
   },
   name:{
     fontWeight: "700",
@@ -602,7 +522,41 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     color: "#666",
     fontSize: 15
-  }
+  },
+  addButton:{
+    backgroundColor: "#0000ff",
+    padding: 8,
+    borderRadius: 100,
+    paddingHorizontal: 8,
+    alignSelf: "center",
+    marginTop: 10
+  },
+  addButtonContainer:{
+    flexDirection: "column",
+    alignSelf: "center",
+    marginLeft: '20%'
+  },
+  total:{
+    fontSize: 18,
+    fontWeight: "700"
+  },
+  subtotal:{
+    color: "#666",
+    fontSize: 13
+  },
+  status: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Aligns items on both ends
+    alignItems: 'center',            // Centers items vertically
+    flex: 1,                         // Ensures the status takes up the full available space
+  },
+  statusText: {
+    textAlign: 'center',             // Center the text within its space
+    flex: 1,                         // Make the text take up all available space
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#00952A',
+  },
 });
 
-export default TransferToSwiftpay;
+export default AllMultipleBanks;

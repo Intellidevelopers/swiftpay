@@ -5,7 +5,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Image,
 import { BottomSheet } from '@rneui/themed';
 // Import the BottomSheet component from react-native-elements
 
-const TransferToSwiftpay: React.FC = () => {
+const MultipleSwiftpayTransfer: React.FC = () => {
   const [swiftPayTag, setSwiftPayTag] = useState('');
   const [recipientName, setRecipientName] = useState('');
   const [amount, setAmount] = useState('');
@@ -71,8 +71,7 @@ const TransferToSwiftpay: React.FC = () => {
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={24} color="#000" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Transfer to Swiftpay Account</Text>
-        <Text style={styles.headerText2}>History</Text>
+        <Text style={styles.headerText}>Transfer to Multiple Swiftpay Account</Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.notice}>
@@ -145,14 +144,14 @@ const TransferToSwiftpay: React.FC = () => {
                   <Image source={require('../assets/images/user1.png')} style={styles.user} />
                   <View>
                     <Text style={styles.name}>Segun Arinze</Text>
-                    <Text style={styles.account}>098654355 Wema Bank</Text>
+                    <Text style={styles.account}>@arinze101</Text>
                   </View>
                 </View>
                 <View style={styles.users}>
                   <Image source={require('../assets/images/user2.png')} style={styles.user} />
                   <View>
                     <Text style={styles.name}>Segun Arinze</Text>
-                    <Text style={styles.account}>098654355 Wema Bank</Text>
+                    <Text style={styles.account}>@segun55</Text>
                   </View>
                 </View>
                 <TouchableOpacity style={styles.viewMore} onPress={() => router.push('/Beneficiaries')}>
@@ -168,14 +167,14 @@ const TransferToSwiftpay: React.FC = () => {
                   <Image source={require('../assets/images/user2.png')} style={styles.user} />
                   <View>
                     <Text style={styles.name}>Jane Doe</Text>
-                    <Text style={styles.account}>123456789 GTBank</Text>
+                    <Text style={styles.account}>@getpaid67</Text>
                   </View>
                 </View>
                 <View style={styles.users}>
                   <Image source={require('../assets/images/user1.png')} style={styles.user} />
                   <View>
                     <Text style={styles.name}>Michael Smith</Text>
-                    <Text style={styles.account}>987654321 Access Bank</Text>
+                    <Text style={styles.account}>@smithmic2</Text>
                   </View>
                 </View>
                 <TouchableOpacity style={styles.viewMore} onPress={() => router.push('/Beneficiaries')}>
@@ -186,8 +185,8 @@ const TransferToSwiftpay: React.FC = () => {
           )}
         </View>
 
-        <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-          <Text style={styles.nextButtonText}>Next</Text>
+        <TouchableOpacity style={styles.nextButton} onPress={() => router.push('/AllMultipleSwiftpay')}>
+          <Text style={styles.nextButtonText}>Add</Text>
         </TouchableOpacity>
       </ScrollView>
 
@@ -333,9 +332,9 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     marginBottom: 20,
-    marginTop: 20
+    marginTop: 20,
+    gap: 20
   },
   backButton: {
     padding: 15,
@@ -605,4 +604,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TransferToSwiftpay;
+export default MultipleSwiftpayTransfer;

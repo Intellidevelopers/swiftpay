@@ -1,6 +1,6 @@
 // Path: src/screens/ReceiptScreen.tsx
 
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 import { BottomSheet } from '@rneui/themed';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
@@ -16,11 +16,13 @@ const Receipt: React.FC = () => {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-          <TouchableOpacity style={styles.backButton} onPress={() => router.push('/(tabs)')}>
+          <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
             <AntDesign name="arrowleft" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerText}>Share Receipt</Text>
-          <View style={styles.placeholder} />
+          <TouchableOpacity style={styles.backButton} onPress={() => router.dismissAll()}>
+            <Feather name="x" size={24} color="#000" />
+          </TouchableOpacity>
         </View>
 
       <ScrollView>

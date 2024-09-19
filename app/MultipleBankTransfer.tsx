@@ -5,7 +5,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, Image,
 import { BottomSheet } from '@rneui/themed';
 // Import the BottomSheet component from react-native-elements
 
-const TransferToSwiftpay: React.FC = () => {
+const MultipleBankTransfer: React.FC = () => {
   const [swiftPayTag, setSwiftPayTag] = useState('');
   const [recipientName, setRecipientName] = useState('');
   const [amount, setAmount] = useState('');
@@ -71,25 +71,21 @@ const TransferToSwiftpay: React.FC = () => {
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={24} color="#000" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Transfer to Swiftpay Account</Text>
+        <Text style={styles.headerText}>Transfer to Multiple Banks</Text>
         <Text style={styles.headerText2}>History</Text>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.notice}>
-          <Image source={require('../assets/icons/strike.png')} style={styles.icon} />
-          <Text style={styles.note}>Transfers made to swiftpay accounts are free</Text>
-        </View>
         <Text style={styles.Subtitle}>Transaction Details</Text>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Swiftpay Tag</Text>
+          <Text style={styles.label}>Bank Name</Text>
           <TextInput
             style={styles.input}
             placeholder="@Josiah67"
             value={swiftPayTag}
             onChangeText={setSwiftPayTag}
           />
-          <Text style={styles.label}>Recipient Name</Text>
+          <Text style={styles.label}>Account Name</Text>
           <TextInput
             style={styles.input}
             placeholder="John Doe"
@@ -142,17 +138,17 @@ const TransferToSwiftpay: React.FC = () => {
             <>
               <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.users}>
-                  <Image source={require('../assets/images/user1.png')} style={styles.user} />
+                  <Image source={require('../assets/banks/fcmb.png')} style={styles.user} />
                   <View>
                     <Text style={styles.name}>Segun Arinze</Text>
-                    <Text style={styles.account}>098654355 Wema Bank</Text>
+                    <Text style={styles.account}>098654355 FCMB</Text>
                   </View>
                 </View>
                 <View style={styles.users}>
-                  <Image source={require('../assets/images/user2.png')} style={styles.user} />
+                  <Image source={require('../assets/banks/access.png')} style={styles.user} />
                   <View>
                     <Text style={styles.name}>Segun Arinze</Text>
-                    <Text style={styles.account}>098654355 Wema Bank</Text>
+                    <Text style={styles.account}>098654355 Access Bank</Text>
                   </View>
                 </View>
                 <TouchableOpacity style={styles.viewMore} onPress={() => router.push('/Beneficiaries')}>
@@ -165,17 +161,17 @@ const TransferToSwiftpay: React.FC = () => {
             <>
               <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.users}>
-                  <Image source={require('../assets/images/user2.png')} style={styles.user} />
+                  <Image source={require('../assets/banks/uba.png')} style={styles.user} />
                   <View>
                     <Text style={styles.name}>Jane Doe</Text>
-                    <Text style={styles.account}>123456789 GTBank</Text>
+                    <Text style={styles.account}>123456789 UBA</Text>
                   </View>
                 </View>
                 <View style={styles.users}>
-                  <Image source={require('../assets/images/user1.png')} style={styles.user} />
+                  <Image source={require('../assets/banks/fcmb.png')} style={styles.user} />
                   <View>
                     <Text style={styles.name}>Michael Smith</Text>
-                    <Text style={styles.account}>987654321 Access Bank</Text>
+                    <Text style={styles.account}>987654321 FCMB</Text>
                   </View>
                 </View>
                 <TouchableOpacity style={styles.viewMore} onPress={() => router.push('/Beneficiaries')}>
@@ -186,8 +182,8 @@ const TransferToSwiftpay: React.FC = () => {
           )}
         </View>
 
-        <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-          <Text style={styles.nextButtonText}>Next</Text>
+        <TouchableOpacity style={styles.nextButton} onPress={() => router.push('/AllMultipleBanks')}>
+          <Text style={styles.nextButtonText}>Add</Text>
         </TouchableOpacity>
       </ScrollView>
 
@@ -605,4 +601,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TransferToSwiftpay;
+export default MultipleBankTransfer;

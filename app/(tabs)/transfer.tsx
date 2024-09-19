@@ -7,6 +7,7 @@ import { AntDesign, FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons
 import { router } from 'expo-router';
 import axios from 'axios';
 import { ListRenderItemInfo } from 'react-native';
+import { BottomSheet, CheckBox } from '@rneui/themed';
 
 const { width } = Dimensions.get('window');
 
@@ -19,15 +20,17 @@ const countries = [
 ];
 
 const transfer: React.FC = () => {
-  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
-  const [refreshing, setRefreshing] = useState(false);
   const [balanceVisible, setBalanceVisible] = useState(false);
+  const [selectedTransferType, setSelectedTransferType] = useState<string | null>(null); // New state for radio buttons
   const [balance, setBalance] = useState(1000);
   const [convertedBalance, setConvertedBalance] = useState(balance);
   const [exchangeRate, setExchangeRate] = useState(1);
-  const [featurePricesVisible, setFeaturePricesVisible] = useState(true);
+  const handleConfirmPayment = () => {
+    setIsTransactionPinVisible(false); // Hide the transaction pin bottom sheet
+    setIsSuccessVisible(true); // Show the success bottom sheet
+  };
 
  // Define your subtitles
  const subtitles = [
@@ -90,6 +93,15 @@ useEffect(() => {
     }).format(amount);
   };
 
+  const handleTransferTypeChange = (type: string) => {
+    setSelectedTransferType(type);
+    if (type === 'Swiftpay') {
+      router.push('../MultipleSwiftpayTransfer');
+    } else if (type === 'Bank') {
+      router.push('/MultipleBankTransfer');
+    }
+  };
+
 
   const renderCountryItem = ({ item }: { item: typeof countries[0] }) => (
     <TouchableOpacity
@@ -103,6 +115,10 @@ useEffect(() => {
       <Text style={styles.countryText}>{item.name} ({item.currency})</Text>
     </TouchableOpacity>
   );
+
+  const [isPaymentSummaryVisible, setIsPaymentSummaryVisible] = useState(false);
+  const [isTransactionPinVisible, setIsTransactionPinVisible] = useState(false);
+  const [isSuccessVisible, setIsSuccessVisible] = useState(false);
 
   return (
     <ImageBackground  source={require('../../assets/images/background.png')} style={styles.container}>
@@ -173,11 +189,11 @@ useEffect(() => {
           <Ionicons name='wallet-outline' size={24} color={'#fff'} style={styles.optionIcon} />
           <Text style={styles.optionButtonText}>SwiftPay Account Transfer</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionButton} onPress={() => router.push('../TransferToSwiftpay')}>
+        <TouchableOpacity style={styles.optionButton} onPress={() => router.push('/SingleBankTransfer')}>
           <MaterialCommunityIcons name='bank-outline' size={24} color={'#fff'} style={styles.optionIcon} />
           <Text style={styles.optionButtonText}>Single Bank Transfer</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionButton}>
+        <TouchableOpacity style={styles.optionButton} onPress={handleConfirmPayment}>
           <Ionicons name='stats-chart-outline' size={20} color={'#fff'} style={styles.optionIcon} />
           <Text style={styles.optionButtonText}>Multiple Bank Transfer</Text>
         </TouchableOpacity>
@@ -205,6 +221,25 @@ useEffect(() => {
           </View>
         </TouchableOpacity>
       </Modal>
+      <BottomSheet isVisible={isSuccessVisible} onBackdropPress={() => setIsSuccessVisible(false)}>
+        <View style={styles.bottomSheetContent}>
+          <Text style={styles.successBottomSheetHeader}>Transfer Type</Text>
+
+          <View style={styles.option}>
+            <TouchableOpacity onPress={() => handleTransferTypeChange('Swiftpay')} style={styles.option}>
+              <Ionicons name={selectedTransferType === 'SwiftPay' ? 'radio-button-on' : 'radio-button-off'} size={24} color="blue" />
+              <Text style={styles.optionText}>Multiple SwiftPay Account</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.option}>
+            <TouchableOpacity onPress={() => handleTransferTypeChange('Bank')} style={styles.option}>
+              <Ionicons name={selectedTransferType === 'Bank' ? 'radio-button-on' : 'radio-button-off'} size={24} color="blue" />
+              <Text style={styles.optionText}>Single Bank Transfer</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </BottomSheet>
     </ImageBackground>
   );
 };
@@ -232,7 +267,12 @@ const styles = StyleSheet.create({
     textAlign: 'center', // Center text within its container
     left: 14
   },
-
+  desc: {
+    textAlign: 'center',
+    color: '#888',
+    fontSize: 14,
+    marginBottom: 20,
+  },
   actionButtonText: {
     color: '#fff',
     marginHorizontal: 10,
@@ -384,6 +424,44 @@ const styles = StyleSheet.create({
   optionIcon: {
     marginRight: 10,  // Add margin to separate icon from text
   },
+  bottomSheetContent: {
+    padding: 20,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+  },
+  logo:{
+    width: 120,
+    height: 120,
+    resizeMode: "contain",
+    alignSelf: "center"
+  },
+  successBottomSheetHeader:{
+    fontSize: 18,
+    fontWeight: "700",
+    textAlign: "center",
+    marginBottom: 5
+  },
+  nextButton: {
+    backgroundColor: '#0000ff',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  nextButtonText: {
+    color: '#fff',
+    fontSize: 18,
+  },
+  option: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  optionText:{
+    fontWeight: "500",
+    fontSize: 16
+  }
 });
 
 
