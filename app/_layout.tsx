@@ -36,7 +36,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('./(tabs)');
+      router.replace('/splash');
     }
   }, [loaded]);
 
@@ -116,6 +116,16 @@ function RootLayoutNav() {
         <Stack.Screen name="MultipleSwiftpayTransfer" options={{ headerShown: false }} />
         <Stack.Screen name="AllMultipleSwiftpay" options={{ headerShown: false }} />
         <Stack.Screen name="MultipleSwiftpaySummary" options={{ headerShown: false }} />
+        <Stack.Screen name="SaveNow" options={{ headerShown: false }} />
+        <Stack.Screen name="SaveWithInterest" options={{ headerShown: false }} />
+        <Stack.Screen name="SavingsDetails" options={{ headerShown: false }} />
+        <Stack.Screen name="CreateSavings" options={{ headerShown: false }} />
+        <Stack.Screen name="Transactions" options={{ headerShown: false }} />
+        <Stack.Screen name="Profile" options={{ headerShown: false }} />
+        <Stack.Screen name="Document" options={{ headerShown: false }} />
+        <Stack.Screen name="KycLevelOne" options={{ headerShown: false }} />
+        <Stack.Screen name="KycLevelTwo" options={{ headerShown: false }} />
+        <Stack.Screen name="KycLevelThree" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

@@ -158,7 +158,7 @@ useEffect(() => {
             <MaterialCommunityIcons name="bell-ring-outline" size={24} color="#0000ff" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.LinkbackButton} onPress={() => {}}>
+          <TouchableOpacity style={styles.LinkbackButton} onPress={() => router.push('/Profile')}>
             <Feather name="menu" size={24} color="#666" />
           </TouchableOpacity>
         </View>

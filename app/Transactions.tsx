@@ -50,17 +50,17 @@ const Transactions: React.FC = () => {
   const renderTransaction = ({ item }: { item: Transaction }) => {
     let iconSource;
     if (item.type.includes('Buy')) {
-      iconSource = require('../../assets/icons/apple.png');
+      iconSource = require('../assets/icons/apple.png');
     } else if (item.type.includes('Sell')) {
-      iconSource = require('../../assets/icons/amazon.png');
+      iconSource = require('../assets/icons/amazon.png');
     } else if (item.type.includes('Interbank')) {
-      iconSource = require('../../assets/icons/bank.png');
+      iconSource = require('../assets/icons/bank.png');
     } else if (item.type.includes('Swiftpay to Swiftpay')) {
-      iconSource = require('../../assets/icons/swift.png');
+      iconSource = require('../assets/icons/swift.png');
     } else if (item.type.includes('Crypto')) {
-      iconSource = require('../../assets/icons/btc.png');
+      iconSource = require('../assets/icons/btc.png');
     } else {
-      iconSource = require('../../assets/icons/swift.png'); // Default icon
+      iconSource = require('../assets/icons/swift.png'); // Default icon
     }
 
     return (
@@ -139,16 +139,16 @@ const Transactions: React.FC = () => {
                 <Image
                   source={
                     selectedTransaction.type.includes('Buy')
-                      ? require('../../assets/icons/apple.png')
+                      ? require('../assets/icons/apple.png')
                       : selectedTransaction.type.includes('Sell')
-                      ? require('../../assets/icons/amazon.png')
+                      ? require('../assets/icons/amazon.png')
                       : selectedTransaction.type.includes('Interbank')
-                      ? require('../../assets/icons/bank.png')
+                      ? require('../assets/icons/bank.png')
                       : selectedTransaction.type.includes('Swiftpay to Swiftpay')
-                      ? require('../../assets/icons/swift.png')
+                      ? require('../assets/icons/swift.png')
                       : selectedTransaction.type.includes('Crypto')
-                      ? require('../../assets/icons/btc.png')
-                      : require('../../assets/icons/swift.png')
+                      ? require('../assets/icons/btc.png')
+                      : require('../assets/icons/swift.png')
                   }
                   style={styles.icon}
                 />

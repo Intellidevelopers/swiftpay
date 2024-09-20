@@ -18,7 +18,8 @@ const CustomCheckbox: React.FC<{ value: boolean; onValueChange: () => void }> = 
 
 const CardOrder = () => {
   const [isSelected, setSelection] = React.useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+
+  const toggleCheckbox = () => setSelection(!isSelected);
 
 
   return (
@@ -44,13 +45,12 @@ const CardOrder = () => {
       </View>
 
       <View style={styles.checkboxContainer}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-        <Text style={styles.label}>I have accepted the <Text style={styles.link}>Terms and Conditions</Text></Text>
+        <CustomCheckbox value={isSelected} onValueChange={toggleCheckbox} />
+        <Text style={styles.label}>
+          I have accepted the <Text style={styles.link}>Terms and Conditions</Text>
+        </Text>
       </View>
+
 
       <TouchableOpacity style={styles.getNowButton}>
         <Text style={styles.getNowButtonText}>Get Now</Text>

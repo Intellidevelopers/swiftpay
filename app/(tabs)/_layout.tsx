@@ -75,14 +75,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="receipt-sharp" color={color} />,
         }}
       />
-         <Tabs.Screen
-        name="transactions"
-        options={{
-          headerShown: false,
-          title: 'Transactions',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="bank-transfer" size={40} color={color} />,
-        }}
-      />
+         
       <Tabs.Screen
         name="cards"
         options={{

@@ -46,6 +46,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.5",
+    "react-native-calendars": "^1.1307.0",
+    "react-native-country-picker-modal": "^2.0.0",
     "react-native-detector": "^0.2.3",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-elements": "^3.4.3",
@@ -59,6 +61,7 @@
     "react-native-screens": "3.31.1",
     "react-native-tab-view": "^3.5.2",
     "react-native-toast-message": "^2.2.0",
+    "react-native-ui-lib": "^7.31.0",
     "react-native-video": "^6.4.5",
     "react-native-web": "~0.19.10"
   },
