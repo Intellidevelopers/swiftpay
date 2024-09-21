@@ -55,7 +55,7 @@ const SavingsDashboard = () => {
           <Text style={styles.amount}>0.00</Text>
           <Text style={styles.interest}>Total Interest</Text>
           <Text style={styles.percent}>50%</Text>
-          <TouchableOpacity style={styles.createButton} onPress={() => router.push('/SaveNow')}>
+          <TouchableOpacity style={styles.createButton} onPress={() => router.push('/CreateSavings')}>
             <Text style={styles.createButtonText}>Create Savings</Text>
           </TouchableOpacity>
         </View>

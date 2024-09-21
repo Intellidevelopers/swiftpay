@@ -36,7 +36,7 @@ const SaveNow = () => {
         </TouchableOpacity>
 
 
-        <TouchableOpacity style={styles.savingsCard}>
+        <TouchableOpacity style={styles.savingsCard} onPress={() => router.push('/GroupSavings')}>
           <View style={styles.iconContainer}>
             <Image source={require('../../assets/icons/user.png')} style={styles.icon} />
             <Text style={styles.cardTitle}>Group Savings</Text>

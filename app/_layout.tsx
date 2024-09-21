@@ -127,6 +127,8 @@ function RootLayoutNav() {
         <Stack.Screen name="KycLevelTwo" options={{ headerShown: false }} />
         <Stack.Screen name="KycLevelThree" options={{ headerShown: false }} />
         <Stack.Screen name="Myqrcode" options={{ headerShown: false }} />
+        <Stack.Screen name="GroupSavings" options={{ headerShown: false }} />
+        <Stack.Screen name="AirtimeData" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );
