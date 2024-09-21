@@ -16,7 +16,7 @@ const splash = () => {
         useNativeDriver: true,
       }).start(() => {
         // Navigate to the next screen after animation
-        router.push('/login'); // Replace './signup' with your actual route
+        router.push('/(tabs)'); // Replace './signup' with your actual route
       });
     }, 6000);
 

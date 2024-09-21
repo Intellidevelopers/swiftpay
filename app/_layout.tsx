@@ -36,7 +36,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('/splash');
+      router.replace('/(tabs)');
     }
   }, [loaded]);
 
@@ -126,6 +126,7 @@ function RootLayoutNav() {
         <Stack.Screen name="KycLevelOne" options={{ headerShown: false }} />
         <Stack.Screen name="KycLevelTwo" options={{ headerShown: false }} />
         <Stack.Screen name="KycLevelThree" options={{ headerShown: false }} />
+        <Stack.Screen name="Myqrcode" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

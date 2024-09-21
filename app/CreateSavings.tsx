@@ -26,9 +26,8 @@ const CreateSavings: React.FC = () => {
   const [isTransactionPinVisible, setIsTransactionPinVisible] = useState(false);
 
 
-  const handlePay = () => {
+  const hadleCancel = () => {
     setIsCustomDateVisible(false); // Hide the transaction pin bottom sheet
-    setIsTransactionPinVisible(true); // Show the transaction pin bottom sheet
   };
 
 
@@ -333,7 +332,7 @@ const CreateSavings: React.FC = () => {
         </View>
       </View>
 
-            <TouchableOpacity style={styles.nextButton} onPress={handlePay}>
+            <TouchableOpacity style={styles.nextButton} onPress={hadleCancel}>
             <Text style={styles.nextButtonText}>Confirm</Text>
             </TouchableOpacity>
         </View>
@@ -390,8 +389,8 @@ const CreateSavings: React.FC = () => {
             </View>
 
            
-          <TouchableOpacity style={styles.nextButton} onPress={() => router.push('/(tabs)/savings')}>
-            <Text style={styles.nextButtonText}>Confirm</Text>
+          <TouchableOpacity style={styles.nextButton} onPress={handleConfirmPayment}>
+            <Text style={styles.nextButtonText}>Confirm Payment</Text>
           </TouchableOpacity>
         </View>
       </BottomSheet>

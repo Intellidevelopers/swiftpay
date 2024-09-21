@@ -13,14 +13,14 @@ const Receipt: React.FC = () => {
       const [isSuccessVisible, setIsSuccessVisible] = useState(false);
     
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
           <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
             <AntDesign name="arrowleft" size={24} color="#000" />
           </TouchableOpacity>
           <Text style={styles.headerText}>Share Receipt</Text>
-          <TouchableOpacity style={styles.backButton} onPress={() => router.dismissAll()}>
+          <TouchableOpacity style={styles.backButton} onPress={() => router.push('/')}>
             <Feather name="x" size={24} color="#000" />
           </TouchableOpacity>
         </View>
@@ -101,7 +101,7 @@ const Receipt: React.FC = () => {
          </View>
         </View>
       </BottomSheet>
-    </SafeAreaView>
+    </View>
   );
 };
 

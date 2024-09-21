@@ -90,7 +90,7 @@ const MultipleTransferSummary = () => {
             <Image source={users[2].image} style={[styles.userImage, styles.userImage3]} />
           </View>
           <View>
-          <Text style={styles.userNames}>Segun Oseni, Tunde Onokoya... <Text style={{color: "#0000ff"}}>+8 others</Text></Text>
+          <Text style={styles.userNames}>Segun Oseni, Tunde On... <Text style={{color: "#0000ff"}}>+8 others</Text></Text>
           <Text style={styles.bankInfo}>Access Bank, Wema Bank, 12 others</Text>
           </View>
         </View>
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     left: 0,
   },
   userNames: {
-    fontSize: 14.6,
+    fontSize: 14,
     fontWeight: 'bold',
   },
   bankInfo: {

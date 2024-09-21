@@ -66,7 +66,7 @@ const MultipleSwiftpayTransfer: React.FC = () => {
  
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={24} color="#000" />
@@ -283,7 +283,7 @@ const MultipleSwiftpayTransfer: React.FC = () => {
           </TouchableOpacity>
         </View>
       </BottomSheet>
-    </SafeAreaView>
+    </View>
   );
 };
 

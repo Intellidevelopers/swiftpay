@@ -546,7 +546,7 @@ const styles = StyleSheet.create({
   addButtonContainer:{
     flexDirection: "column",
     alignSelf: "center",
-    marginLeft: '20%'
+    marginLeft: '18%'
   },
   total:{
     fontSize: 18,

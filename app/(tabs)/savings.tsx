@@ -1,304 +1,147 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, Animated, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
-import { Overlay } from '@rneui/themed';
-import { useFocusEffect } from '@react-navigation/native';
 import { router } from 'expo-router';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-const SavingsDashboard = () => {
-  const [visible, setVisible] = useState(true); // Modal visibility state
-  const fadeAnim = useRef(new Animated.Value(0)).current; // Animation reference for opacity
-
-  // Open modal with fade-in animation when navigating to the tab
-  useFocusEffect(
-    React.useCallback(() => {
-      setVisible(true); // Ensure the modal remains visible when navigating back
-      fadeIn();
-      return () => fadeOut(); // Fade out when navigating away
-    }, [])
-  );
-
-  // Fade-in animation
-  const fadeIn = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 1, // Fully visible
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  // Fade-out animation
-  const fadeOut = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0, // Fully invisible
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const closeModal = () => {
-    fadeOut(); 
-    setVisible(false)
-  };
-
+const SaveNow = () => {
   return (
-    <ScrollView style={styles.container}>
-      {/* Welcome Message */}
-      <Text style={styles.username}>Hi, Jerome! 👋</Text>
-      <Text style={styles.subtext}>Don't forget to save your money!</Text>
+    <View style={styles.container}>
+        <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+          <AntDesign name="left" size={24} color="#000" />
+        </TouchableOpacity>
+      </View>
 
-      {/* Total Savings Card */}
-      <ImageBackground style={styles.savingsCard}>
-        <View style={styles.savingsInfo}>
-          <Text style={styles.savingsTitle}>Total Savings</Text>
-          <Text style={styles.amount}>0.00</Text>
-          <Text style={styles.interest}>Total Interest</Text>
-          <Text style={styles.percent}>50%</Text>
-          <TouchableOpacity style={styles.createButton} onPress={() => router.push('/SaveNow')}>
-            <Text style={styles.createButtonText}>Create Savings</Text>
-          </TouchableOpacity>
-        </View>
-        <Image
-          source={require('../../assets/icons/coin.png')}
-          style={styles.coinsImage}
-        />
-      </ImageBackground>
-
+      <TouchableOpacity style={styles.balanceCard}>
       <View>
-        <Text style={styles.sectionTitle}>Savings</Text>
+        <Text style={styles.balanceText}>My swiftPay balance</Text>
+        <Text style={styles.balanceAmount}>0.00</Text>
+      </View>
+      <AntDesign name="right" size={24} color="#fff" />
+      </TouchableOpacity>
 
-        {/* Savings Card 1 */}
-        <TouchableOpacity style={styles.savingsItem} onPress={() => router.push('/SavingsDetails')}>
-          <View style={styles.savingsContent}>
-            <Image source={require('../../assets/icons/logo.png')} style={styles.savingsLogo} />
-            <View>
-              <Text style={styles.savingsTitleText}>New York Road Trip</Text>
-              <Text style={styles.savingsSubText}>
-                60% <Text style={{ color: "#0000ff", fontSize: 15 }}>•</Text> <Text style={{ color: "#666", fontWeight: "500" }}>20 days left</Text>
-              </Text>
-              <View style={styles.unlock}>
-                <Text style={styles.unlockText}></Text>
-              </View>
-            </View>
+      <View style={styles.savingsContainer}>
+      <TouchableOpacity style={styles.savingsCard} onPress={() => router.push('/SaveWithInterest')}>
+          <View style={styles.iconContainer}>
+            <Image source={require('../../assets/icons/user.png')} style={styles.icon} />
+            <Text style={styles.cardTitle}>Save With Intrest</Text>
           </View>
-          <Text style={styles.balance}>$1,460.15</Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.cardDescription}>
+            Save Daily, Weekly & Monthly And Get Interest On Your Savings. Lock Your Savings And Create Multiple Savings Account/Wallet.
+            </Text>
+            <Image source={require('../../assets/interest.png')} style={styles.actionIcon} />
+          </View>
+          
         </TouchableOpacity>
 
-        {/* Savings Card 2 */}
-        <TouchableOpacity style={styles.savingsItem} onPress={() => router.push('/SavingsDetails')}>
-          <View style={styles.savingsContent}>
-            <Image source={require('../../assets/icons/logo.png')} style={styles.savingsLogo} />
-            <View>
-              <Text style={styles.savingsTitleText}>New York Road Trip</Text>
-              <Text style={styles.savingsSubText}>
-                60% <Text style={{ color: "#0000ff", fontSize: 15 }}>•</Text> <Text style={{ color: "#666", fontWeight: "500" }}>20 days left</Text>
-              </Text>
-              <View style={styles.unlock}>
-                <Text style={styles.unlockText}>Unlocked</Text>
-                <AntDesign style={{ left: 50 }} name='arrowright' size={30} color={'#0000ff'} />
-              </View>
-            </View>
+
+        <TouchableOpacity style={styles.savingsCard}>
+          <View style={styles.iconContainer}>
+            <Image source={require('../../assets/icons/user.png')} style={styles.icon} />
+            <Text style={styles.cardTitle}>Group Savings</Text>
           </View>
-          <Text style={styles.balance}>$1,460.15</Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.cardDescription}>
+              Create Your Joint Wallet And Save With Your Friend, Family Or Business Partners. Save For A Project, Share For A Business.
+            </Text>
+            <Image source={require('../../assets/group.png')} style={styles.actionIcon} />
+          </View>
+          
         </TouchableOpacity>
       </View>
-
-      {/* Modal with fade animation */}
-      {visible && (
-  <Animated.View style={[styles.overlay, { opacity: fadeAnim }]}>
-    <Overlay
-      isVisible={visible}
-      overlayStyle={styles.modalOverlay}
-      onBackdropPress={closeModal}
-    >
-      <View style={styles.modalContent}>
-        {/* Close Button */}
-        <TouchableOpacity onPress={closeModal} style={{alignSelf: "flex-end"}}>
-          <AntDesign name='closecircle' size={24} color='red' />
-        </TouchableOpacity>
-
-        <Image source={require('../../assets/mock.png')} style={styles.mock} />
-        <Text style={styles.modalTitle}>Personal Savings</Text>
-        <Text style={styles.modalMessage}>
-          Save with interest and get up to 20% increase annually.
-        </Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Save Now</Text>
-        </TouchableOpacity>
-      </View>
-    </Overlay>
-  </Animated.View>
-)}
-
-    </ScrollView>
+    </View>
   );
 };
-
-export default SavingsDashboard;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    padding: 20,
+    padding: 16,
   },
-  username: {
-    fontSize: 22,
-    fontWeight: '700',
-    marginTop: 40
-  },
-  subtext: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 20,
-  },
-  savingsCard: {
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    padding: 20,
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-    elevation: 5
+    marginBottom: 30,
+    marginTop: 20,
+    gap: 20
   },
-  savingsInfo: {
+  backButton: {
+    padding: 15,
+    borderRadius: 100,
+    backgroundColor: '#fff',
+  },
+  balanceCard: {
+    backgroundColor: '#0000ff',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  balanceText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  balanceAmount: {
+    color: '#fff',
+    fontSize: 32,
+    fontWeight: 'bold',
+  },
+  balanceIcon: {
+    color: '#fff',
+    fontSize: 20,
+  },
+  savingsContainer: {
     flex: 1,
   },
-  savingsTitle: {
-    fontSize: 18,
-    fontWeight: '400',
-    color: '#666',
-  },
-  amount: {
-    fontSize: 30,
-    fontWeight: '700',
-    marginVertical: 10,
-  },
-  interest: {
-    fontSize: 14,
-    color: '#666',
-  },
-  percent: {
-    color: '#32CD32',
-  },
-  createButton: {
-    backgroundColor: '#0000ff',
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    marginTop: 10,
+  savingsCard: {
+    backgroundColor: '#F7F7F7',
+    borderRadius: 12,
+    flexDirection: 'column',
     alignItems: 'center',
-    alignSelf: 'center',
-    left: 80,
-  },
-  createButtonText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  coinsImage: {
-    width: 150,
-    height: 150,
-    top: -20,
-  },
-  mock:{
-    width: 200,
-    height: 200,
-    resizeMode: "contain"
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 10,
-  },
-  savingsItem: {
-    backgroundColor: '#0000ff',
-    borderRadius: 20,
-    overflow: 'hidden',
-    marginBottom: 40,
-    height: 150,
+    padding: 15,
+    marginBottom: 16,
     elevation: 5,
   },
-  savingsContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 10,
-    paddingHorizontal: 10,
-    width: '100%',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
-  savingsLogo: {
-    width: 60,
-    height: 60,
-    marginRight: 30,
-  },
-  savingsTitleText: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 5,
-  },
-  savingsSubText: {
-    fontSize: 16,
-    color: '#32CD32',
-    fontWeight: '700',
-    alignItems: 'center',
-  },
-  balance: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: '#fff',
-    marginTop: 10,
-    alignSelf: 'center',
-  },
-  unlock: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  unlockText: {
-    fontSize: 18,
-    fontWeight: '700',
-  },
-  // Modal Styles
-  modalOverlay: {
-    width: '80%',
-    backgroundColor: '#e3e9fd',
-    borderRadius: 20,
-    padding: 20,
-    alignItems: 'center',
-  },
-  modalContent: {
-    alignItems: 'center',
-  },
-  modalTitle: {
-    fontSize: 22,
-    fontWeight: '700',
-    marginBottom: 10,
-  },
-  modalMessage: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 20,
-    textAlign: 'center',
-    width: 220
-  },
-  overlay: {
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button:{
-    backgroundColor: "#0000ff",
-    padding: 10,
-    paddingHorizontal: 80,
-    borderRadius: 30,
+  iconContainer: {
+    flexDirection: "row",
+    alignSelf: "flex-start",
     marginBottom: 10
   },
-  buttonText:{
-    color: "#fff"
-  }
+  icon: {
+    width: 30,
+    height: 30,
+    marginRight: 10
+  },
+  textContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 30
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  cardDescription: {
+    fontSize: 13,
+    color: '#5C5C5C',
+    width: 170,
+    alignSelf: "flex-start",
+    left: 2,
+    marginRight: 70
+  },
+  iconActionContainer: {
+  },
+  actionIcon: {
+    width: 60,
+    height: 60,
+    resizeMode: "contain"
+  },
 });
+
+export default SaveNow;

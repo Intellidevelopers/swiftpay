@@ -6,7 +6,7 @@ import { router } from 'expo-router'
 
 const SaveWithInterest = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={24} color="#000" />
         </TouchableOpacity>
@@ -27,12 +27,12 @@ const SaveWithInterest = () => {
         <Image source={require('../assets/icons/card-send.png')} style={styles.icon} />
         <Text>Get high interest on your savings today</Text>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/SaveNow')}>
         <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>
       </View>
       
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     mock:{
         width: 250,
         height: 250,
-        marginTop: 100,
+        marginTop: 80,
         alignSelf: "center",
         resizeMode: "contain"
     },
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
         padding: 15,
         backgroundColor: '#ddd',
         borderRadius: 100,
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        marginTop: 40
       },
 })

@@ -58,7 +58,7 @@ const SingleBankTransfer: React.FC = () => {
     setIsSuccessVisible(true); // Show the success bottom sheet
   };
 
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
 
   const toggleCheckbox = () => {
     setIsChecked(!isChecked); // Toggle checkbox state
@@ -91,7 +91,7 @@ const SingleBankTransfer: React.FC = () => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={24} color="#000" />
@@ -300,7 +300,9 @@ const SingleBankTransfer: React.FC = () => {
         <TouchableOpacity style={styles.backButton} onPress={() => router.push('/(tabs)')}>
           <AntDesign name="arrowleft" size={24} color="#000" />
         </TouchableOpacity>
-        <Text style={styles.doneText}>Done</Text>
+       <TouchableOpacity onPress={() => router.push('/')}>
+       <Text style={styles.doneText}>Done</Text>
+       </TouchableOpacity>
       </View>
 
       {/* Transaction Icon and Amount */}
@@ -396,7 +398,7 @@ const SingleBankTransfer: React.FC = () => {
           />
         </View>
       </BottomSheet>
-    </SafeAreaView>
+    </View>
   );
 };
 
