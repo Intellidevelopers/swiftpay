@@ -40,7 +40,7 @@ const Bills = () => {
 
       <View style={styles.mainContent}>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity style={styles.card} onPress={() => router.push('/Electricity')}>
             <Image source={require('../../assets/Bills/electricity.png')} style={styles.icon} />
             <Text style={styles.label}>Electricity</Text>
           </TouchableOpacity>

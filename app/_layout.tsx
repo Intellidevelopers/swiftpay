@@ -36,7 +36,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('/(tabs)');
+      router.replace('/(tabs)')
     }
   }, [loaded]);
 
@@ -129,6 +129,11 @@ function RootLayoutNav() {
         <Stack.Screen name="Myqrcode" options={{ headerShown: false }} />
         <Stack.Screen name="GroupSavings" options={{ headerShown: false }} />
         <Stack.Screen name="AirtimeData" options={{ headerShown: false }} />
+        <Stack.Screen name="BillReceipt" options={{ headerShown: false }} />
+        <Stack.Screen name="Electricity" options={{ headerShown: false }} />
+        <Stack.Screen name="sample" options={{ headerShown: false }} />
+        <Stack.Screen name="Tv" options={{ headerShown: false }} />
+        <Stack.Screen name="Farida" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

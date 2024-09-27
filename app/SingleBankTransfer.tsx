@@ -240,14 +240,14 @@ const SingleBankTransfer: React.FC = () => {
                 </View>
                 <View style={styles.flex}>
                 <Text style={styles.successBottomSheetTextLabel}>Transactio Fee</Text>
-                <Text style={styles.successBottomSheetText}>N 10.00</Text>
+                <Text style={styles.successBottomSheetText}>₦ 10.00</Text>
                 </View>
             </View>
             <Text style={styles.balanceTitle}>Payment Method</Text>
             <View style={styles.balanceContainer}>
               <View style={styles.balance}>
                 <Text style={styles.swiftpay}>Swiftpay Balance</Text>
-                <Text style={styles.balanceText}>N 2,345.98</Text>
+                <Text style={styles.balanceText}>₦ 2,345.98</Text>
               </View>
               <TouchableOpacity onPress={toggleCheckbox}>
                 <View style={[styles.circle, isChecked && styles.checkedCircle]}>

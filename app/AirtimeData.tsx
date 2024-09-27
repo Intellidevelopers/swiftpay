@@ -8,7 +8,8 @@ import { AntDesign, Entypo, EvilIcons, FontAwesome } from '@expo/vector-icons';
 import * as Contacts from 'expo-contacts';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import RecommendedScrollCards from '@/components/RecommendedScrollCards';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
+import { BottomSheet } from '@rneui/themed';
 
 
 interface CardItem {
@@ -32,6 +33,8 @@ const AirtimeData = () => {
   const [selectedNetwork, setSelectedNetwork] = useState(defaultNetwork);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [recentNumbers, setRecentNumbers] = useState<string[]>(['090 8765 879', '080 1234 5678', '070 9876 5432']);
+  const [isTransactionPinVisible, setIsTransactionPinVisible] = useState(false);
+
 
   // Show the dropdown when the input is focused
   const handleInputFocus = () => {
@@ -138,6 +141,55 @@ const AirtimeData = () => {
     }
   };
   
+  const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+  const [isSuccessVisible, setIsSuccessVisible] = useState(false);
+  const [isBalanceHidden, setIsBalanceHidden] = useState(false);
+  const { cryptoName, price, quantity, limits } = useLocalSearchParams();
+
+  const toggleBalanceVisibility = () => {
+    setIsBalanceHidden(!isBalanceHidden);
+  };
+
+  const handlePreview = () => {
+    setIsPreviewVisible(true); // Show the preview bottom sheet
+  };
+
+  const handleContinue = () => {
+    setIsPreviewVisible(false); // Hide the preview bottom sheet
+    setIsTransactionPinVisible(true)
+  };
+
+  const [otp, setOtp] = useState(['', '', '', '']);
+  const inputRefs = useRef<(TextInput | null)[]>([]);
+
+  const handleOtpChange = (text: string, index: number) => {
+    // Set OTP value at the current index
+    const newOtp = [...otp];
+    newOtp[index] = text;
+    setOtp(newOtp);
+
+    // Move to the next input
+    if (text && index < 4) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleKeyPress = (e: any, index: number) => {
+    if (e.nativeEvent.key === 'Backspace' && otp[index] === '') {
+      // Move to the previous input
+      if (index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+    }
+  };
+
+  
+  const handleConfirmPayment = () => {
+    setIsTransactionPinVisible(false); // Hide the transaction pin bottom sheet
+    setIsSuccessVisible(true); // Show the success bottom sheet
+  };
+
+
 
   return (
     <View style={styles.container}>
@@ -177,7 +229,7 @@ const AirtimeData = () => {
 
 <View style={styles.topUpOption}>
   {['₦50', '₦100', '₦200', '₦500', '₦1,000', '₦2,000'].map((amount, index) => (
-    <TouchableOpacity key={index} style={styles.topUpCard}>
+    <TouchableOpacity key={index} style={styles.topUpCard} onPress={handlePreview}>
       <Text style={styles.cashbackText}>₦1 Cashback</Text>
       <Text style={styles.amountText}>{amount}</Text>
       <Text style={styles.payText}>Pay ₦50</Text>
@@ -187,7 +239,7 @@ const AirtimeData = () => {
 
 <View style={styles.slider}>
 <View style={styles.amountInputContainer}>
-  <TextInput placeholder="N 50-500,00" style={styles.amountInput} keyboardType="numeric" />
+  <TextInput placeholder="₦ 50-500,00" style={styles.amountInput} keyboardType="numeric" />
   <TouchableOpacity style={styles.payButton}>
     <Text style={styles.payButtonText}>Pay</Text>
   </TouchableOpacity>
@@ -282,7 +334,7 @@ const AirtimeData = () => {
         </View>
       )}
 
-
+ 
 <RecommendedScrollCards/>
 
 <View style={styles.planContainer}>
@@ -295,7 +347,7 @@ const AirtimeData = () => {
 
 <View style={styles.topUpOptions}>
   {['100MB', '100MB', '100MB', '100MB', '100MB', '100MB'].map((amount, index) => (
-    <TouchableOpacity key={index} style={styles.topUpDataCard}>
+    <TouchableOpacity key={index} style={styles.topUpDataCard} onPress={handleContinue}>
       <Text style={styles.amountText}>{amount}</Text>
       <Text style={styles.planDate}>1 Day</Text>
       <Text style={styles.payText}>₦ 150</Text>
@@ -354,6 +406,80 @@ const AirtimeData = () => {
           )}
         />
       </RBSheet>
+
+      <BottomSheet isVisible={isPreviewVisible} onBackdropPress={() => setIsPreviewVisible(false)}>
+          <View style={styles.bottomSheetContent}>
+            <View style={styles.bottomSheetHeader}>
+              <Text style={styles.bottomSheetTitle2}>Payment</Text>
+            </View>
+            <Text style={styles.amount}>₦1,000.00</Text>
+
+            <View style={styles.flex}>
+              <Text style={styles.label}>Amount</Text>
+              <Text style={styles.bottomSheetText}>₦1,000.00</Text>
+            </View>
+            <View style={styles.flex}>
+              <Text style={styles.label}>Provider</Text>
+              <Text style={styles.bottomSheetText}>Glo</Text>
+            </View>
+            <View style={styles.flex}>
+              <Text style={styles.label}>Mobile number</Text>
+              <Text style={styles.bottomSheetText}>080 8888 6823</Text>
+            </View>
+            <View style={styles.flex}>
+              <Text style={styles.label}>Balance</Text>
+              <Text style={styles.bottomSheetText}>(₦2,567.44)</Text>
+            </View>
+            <View style={styles.flex}>
+              <Text style={styles.label}>Cashback</Text>
+              <Text style={styles.bottomSheetText}>+15Pts</Text>
+            </View>
+            <TouchableOpacity style={styles.SellButton} onPress={handleContinue}>
+              <Text style={styles.SellButtonText}>Continue</Text>
+            </TouchableOpacity>
+          </View>
+        </BottomSheet>
+        <BottomSheet isVisible={isTransactionPinVisible} onBackdropPress={() => setIsTransactionPinVisible(false)}>
+        <View style={styles.bottomSheetContent}>
+          <View style={styles.bottomSheetHeader}>
+              <Text style={styles.bottomSheetTitle}>Complete Payment</Text>
+              
+            </View>
+          <Text style={styles.successBottomSheetHeader}>Enter Pin</Text>
+      <Text style={styles.desc}>Enter pin to complete transaction</Text>
+
+            <View style={styles.otpContainer}>
+              {otp.map((digit, index) => (
+                <TextInput
+                  key={index}
+                  ref={(ref) => (inputRefs.current[index] = ref)}
+                  style={styles.otpInput}
+                  keyboardType="number-pad"
+                  maxLength={1}
+                  value={digit}
+                  onChangeText={(text) => handleOtpChange(text, index)}
+                  onKeyPress={(e) => handleKeyPress(e, index)}
+                  autoFocus={index === 0} // Auto-focus the first input
+                />
+              ))}
+            </View>
+          <TouchableOpacity style={styles.nextButton} onPress={handleConfirmPayment}>
+            <Text style={styles.nextButtonText}>Confirm Payment</Text>
+          </TouchableOpacity>
+        </View>
+      </BottomSheet>
+      <BottomSheet isVisible={isSuccessVisible} onBackdropPress={() => setIsSuccessVisible(false)}>
+        <View style={styles.bottomSheetContent}>
+          
+          <Image source={require('../assets/icons/success.png')} style={styles.logo} />
+          <Text style={styles.successBottomSheetHeader}>Transfer Successful</Text>
+      <Text style={styles.desc}>Your transfer to Segun Arinze for N4,890.00 is successful</Text>
+
+      <TouchableOpacity style={styles.nextButton} onPress={() => router.push('/BillReceipt')}>
+            <Text style={styles.nextButtonText}>View Receipt</Text>
+          </TouchableOpacity>
+        </View>
+      </BottomSheet>
     </View>
   );
 };
@@ -630,7 +756,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-    paddingTop: 10
+    paddingTop: 10,
+    textAlign: "center",
+    alignSelf: "center"
+  },
+  bottomSheetTitle2: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    paddingTop: 10,
+    textAlign: "center",
+    alignSelf: "center"
   },
   contactItem: {
     padding: 15,
@@ -724,5 +859,110 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 10,
     borderRadius: 20
-  }
+  },
+  bottomSheetContent: {
+    padding: 20,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },  icon: {
+    alignSelf: 'flex-end',
+  },
+  flex: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  amount:{
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "700",
+    color: "#0000ff"
+  },
+  bottomSheetText: {
+    fontSize: 16,
+    marginBottom: 10,
+    fontWeight: "700"
+
+  },
+  label: {
+    fontSize: 15,
+    marginBottom: 10,
+  },
+  successBottomSheetText: {
+    fontSize: 16,
+    marginBottom: 10,
+    alignItems: "center"
+  },
+  successBottomSheetTextgreen: {
+    fontSize: 16,
+    marginBottom: 10,
+    alignItems: "center",
+    color: "#00952A",
+    fontWeight: "700"
+  },
+  bottomSheetHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  SellButton: {
+    backgroundColor: '#1400FB',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  SellButtonText: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: 'medium',
+  },
+  otpContainer: {
+    flexDirection: 'row',
+    marginBottom: 30,
+    gap: 15,
+    alignSelf: "center"
+  },
+  otpInput: {
+    width: 50,
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#999', // Success green color for the border
+    borderRadius: 8,
+    textAlign: 'center',
+    fontSize: 30,
+    color: '#000',
+    fontWeight: "900"
+  },
+  nextButton: {
+    backgroundColor: '#0000ff',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  nextButtonText: {
+    color: '#fff',
+    fontSize: 18,
+  },
+  desc: {
+    textAlign: 'center',
+    color: '#888',
+    fontSize: 14,
+    marginBottom: 20,
+  },
+  successBottomSheetHeader:{
+    fontSize: 18,
+    fontWeight: "700",
+    textAlign: "center",
+    marginBottom: 5
+  },
+  logo:{
+    width: 120,
+    height: 120,
+    resizeMode: "contain",
+    alignSelf: "center"
+  },
 });
