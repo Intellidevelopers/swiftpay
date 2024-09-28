@@ -134,6 +134,7 @@ function RootLayoutNav() {
         <Stack.Screen name="sample" options={{ headerShown: false }} />
         <Stack.Screen name="Tv" options={{ headerShown: false }} />
         <Stack.Screen name="Farida" options={{ headerShown: false }} />
+        <Stack.Screen name="Benjamin" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );
