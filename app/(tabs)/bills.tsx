@@ -45,7 +45,7 @@ const Bills = () => {
             <Text style={styles.label}>Electricity</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity style={styles.card}  onPress={() => router.push('/Tv')}>
             <Image source={require('../../assets/Bills/tv.png')} style={styles.icon} />
             <Text style={styles.label}>TV & Internet</Text>
           </TouchableOpacity>
@@ -57,7 +57,7 @@ const Bills = () => {
             <Text style={styles.label}>Airtime & Data</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity style={styles.card} onPress={() => router.push('/ComingSoon')}>
             <Image source={require('../../assets/Bills/betting.png')} style={styles.icon} />
             <Text style={styles.label}>Betting</Text>
           </TouchableOpacity>

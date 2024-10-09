@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
@@ -22,7 +23,7 @@ const Stock = () => {
           <Text style={styles.listItem}>Create multiple investment and choose your preferred time duration.</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/InvestDashboard')}>
         <Text style={styles.buttonText}>Invest Now</Text>
       </TouchableOpacity>
     </View>

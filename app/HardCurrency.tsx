@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
@@ -22,7 +23,7 @@ const HardCurrency = () => {
           <Text style={styles.listItem}>Money saved would be sent back to your swiftpay wallet, at that day's rate. If the rate is higher than what you saved, the user would earn more money!</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/HoldingsInvest')}>
         <Text style={styles.buttonText}>Save Now</Text>
       </TouchableOpacity>
     </View>

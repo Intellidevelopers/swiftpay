@@ -27,7 +27,6 @@ const Profile = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <AntDesign name="arrowleft" size={24} color="#fff" />
@@ -35,7 +34,6 @@ const Profile = () => {
       </View>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        {/* Account Section */}
         <Text style={styles.sectionTitle}>Account</Text>
         <View style={styles.section}>
           <TouchableOpacity style={styles.listItem}>
@@ -55,7 +53,6 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Finances Section */}
         <Text style={styles.sectionTitle}>Finances</Text>
         <View style={styles.section}>
           <TouchableOpacity style={styles.listItem} onPress={() => toggleSection('finances')}>
@@ -95,7 +92,6 @@ const Profile = () => {
           )}
         </View>
 
-        {/* Deposit/Withdrawal Section */}
         <Text style={styles.sectionTitle}>Deposit/Withdrawal</Text>
         <View style={styles.section}>
           <TouchableOpacity style={styles.listItem} onPress={() => toggleSection('depositWithdrawal')}>
@@ -117,15 +113,14 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Security Section */}
         <Text style={styles.sectionTitle}>Security</Text>
         <View style={styles.section}>
-          <TouchableOpacity style={styles.listItem}>
+          <TouchableOpacity style={styles.listItem} onPress={() => router.push('/ChangePassword')}>
             <MaterialCommunityIcons name="lock" size={24} color="#000" />
             <Text style={styles.listText}>Change Password</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.listItem}>
+          <TouchableOpacity style={styles.listItem} onPress={() => router.push('/TwoFactorAuthentication')}>
             <MaterialCommunityIcons name="security" size={24} color="#000" />
             <Text style={styles.listText}>Two Factor Authentication</Text>
           </TouchableOpacity>
@@ -135,13 +130,12 @@ const Profile = () => {
             <Text style={styles.listText}>Device Sessions</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.listItem}>
+          <TouchableOpacity style={styles.listItem} onPress={() => router.push('/ChangePin')}>
             <MaterialCommunityIcons name="key" size={24} color="#000" />
             <Text style={styles.listText}>Change Pin</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Others Section */}
         <Text style={styles.sectionTitle}>Others</Text>
         <View style={styles.section}>
           <TouchableOpacity style={styles.listItem}>
@@ -165,10 +159,9 @@ const Profile = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Support Section */}
         <Text style={styles.sectionTitle}>Support</Text>
         <View style={styles.section}>
-          <TouchableOpacity style={styles.listItem}>
+          <TouchableOpacity style={styles.listItem} onPress={() => router.push('/CustomerCare')}>
             <MaterialCommunityIcons name="chat" size={24} color="#000" />
             <Text style={styles.listText}>Live Chat Support</Text>
           </TouchableOpacity>

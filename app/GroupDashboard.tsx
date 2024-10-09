@@ -6,7 +6,7 @@ import { Overlay } from '@rneui/themed';
 import { useFocusEffect } from '@react-navigation/native';
 import { router } from 'expo-router';
 
-const SaveNow = () => {
+const GroupDashboard = () => {
   const [visible, setVisible] = useState(true); // Modal visibility state
   const fadeAnim = useRef(new Animated.Value(0)).current; // Animation reference for opacity
 
@@ -45,40 +45,47 @@ const SaveNow = () => {
   return (
     <ScrollView style={styles.container}>
       {/* Welcome Message */}
-      <Text style={styles.username}>Hi, Jerome! 👋</Text>
-      <Text style={styles.subtext}>Don't forget to save your money!</Text>
+      <TouchableOpacity style={styles.backButton}>
+        <AntDesign name='left' size={25}/>
+      </TouchableOpacity>
 
       {/* Total Savings Card */}
-      <ImageBackground style={styles.savingsCard}>
+      <ImageBackground source={require('../assets/cards/cardbg.png')} style={styles.savingsCard}>
         <View style={styles.savingsInfo}>
-          <Text style={styles.savingsTitle}>Total Savings</Text>
+          <Text style={styles.savingsTitle}>Total Group Savings</Text>
           <Text style={styles.amount}>0.00</Text>
-          <Text style={styles.interest}>Total Interest</Text>
-          <Text style={styles.percent}>50%</Text>
+          <Text style={styles.interest}>Total Members</Text>
+          <Text style={styles.percent}>50+ Members</Text>
           <TouchableOpacity style={styles.createButton} onPress={() => router.push('/CreateSavings')}>
             <Text style={styles.createButtonText}>Create Savings</Text>
           </TouchableOpacity>
         </View>
-        <Image
-          source={require('../assets/icons/coin.png')}
-          style={styles.coinsImage}
-        />
       </ImageBackground>
 
       <View>
-        <Text style={styles.sectionTitle}>Savings</Text>
+        <View style={styles.joinContainer}>
+            <Text style={styles.sectionTitle}>Group Savings</Text>
+            <TouchableOpacity style={styles.joinButton}>
+                <AntDesign name='pluscircleo' size={20} color={'#fff'}/>
+                <Text style={styles.joinButtonText}>Join Savings</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.history}>
+                <AntDesign name='pluscircleo' size={20} color={'#0000ff'}/>
+                <Text style={styles.historyText}>History</Text>
+            </TouchableOpacity>
+        </View>
 
         {/* Savings Card 1 */}
-        <TouchableOpacity style={styles.savingsItem} onPress={() => router.push('/SavingsDetails')}>
+        <TouchableOpacity style={styles.savingsItem} onPress={() => router.push('/GroupSavingsDetails')}>
           <View style={styles.savingsContent}>
             <Image source={require('../assets/icons/logo.png')} style={styles.savingsLogo} />
             <View>
               <Text style={styles.savingsTitleText}>New York Road Trip</Text>
-              <Text style={styles.savingsSubText}>
-                60% <Text style={{ color: "#0000ff", fontSize: 15 }}>•</Text> <Text style={{ color: "#666", fontWeight: "500" }}>20 days left</Text>
-              </Text>
+               <Text style={{ color: "#666", fontWeight: "500" }}>20 days left</Text>
               <View style={styles.unlock}>
-                <Text style={styles.unlockText}></Text>
+                <Text style={styles.unlockText}>+2 Members</Text>
+                <AntDesign style={{ left: 50 }} name='arrowright' size={22} color={'#0000ff'}/>
               </View>
             </View>
           </View>
@@ -86,17 +93,15 @@ const SaveNow = () => {
         </TouchableOpacity>
 
         {/* Savings Card 2 */}
-        <TouchableOpacity style={styles.savingsItem} onPress={() => router.push('/SavingsDetails')}>
+        <TouchableOpacity style={styles.savingsItem} onPress={() => router.push('/GroupSavingsDetails')}>
           <View style={styles.savingsContent}>
             <Image source={require('../assets/icons/logo.png')} style={styles.savingsLogo} />
             <View>
               <Text style={styles.savingsTitleText}>New York Road Trip</Text>
-              <Text style={styles.savingsSubText}>
-                60% <Text style={{ color: "#0000ff", fontSize: 15 }}>•</Text> <Text style={{ color: "#666", fontWeight: "500" }}>20 days left</Text>
-              </Text>
+               <Text style={{ color: "#666", fontWeight: "500" }}>20 days left</Text>
               <View style={styles.unlock}>
-                <Text style={styles.unlockText}>Unlocked</Text>
-                <AntDesign style={{ left: 50 }} name='arrowright' size={30} color={'#0000ff'} />
+                <Text style={styles.unlockText}>+2 Members</Text>
+                <AntDesign style={{ left: 50 }} name='arrowright' size={22} color={'#0000ff'}/>
               </View>
             </View>
           </View>
@@ -104,44 +109,17 @@ const SaveNow = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Modal with fade animation */}
-      {visible && (
-  <Animated.View style={[styles.overlay, { opacity: fadeAnim }]}>
-    <Overlay
-      isVisible={visible}
-      overlayStyle={styles.modalOverlay}
-      onBackdropPress={closeModal}
-    >
-      <View style={styles.modalContent}>
-        {/* Close Button */}
-        <TouchableOpacity onPress={closeModal} style={{alignSelf: "flex-end"}}>
-          <AntDesign name='closecircle' size={24} color='red' />
-        </TouchableOpacity>
-
-        <Image source={require('../assets/mock.png')} style={styles.mock} />
-        <Text style={styles.modalTitle}>Personal Savings</Text>
-        <Text style={styles.modalMessage}>
-          Save with interest and get up to 20% increase annually.
-        </Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Save Now</Text>
-        </TouchableOpacity>
-      </View>
-    </Overlay>
-  </Animated.View>
-)}
-
     </ScrollView>
   );
 };
 
-export default SaveNow;
+export default GroupDashboard;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    padding: 20,
+    padding: 10,
   },
   username: {
     fontSize: 22,
@@ -154,14 +132,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   savingsCard: {
-    backgroundColor: '#fff',
     borderRadius: 15,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
-    elevation: 5
+    resizeMode: "contain"
   },
   savingsInfo: {
     flex: 1,
@@ -181,7 +158,8 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   percent: {
-    color: '#32CD32',
+    color: '#0000ff',
+    fontWeight: "600"
   },
   createButton: {
     backgroundColor: '#0000ff',
@@ -191,7 +169,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
     alignSelf: 'center',
-    left: 80,
   },
   createButtonText: {
     color: '#fff',
@@ -246,6 +223,7 @@ const styles = StyleSheet.create({
     color: '#32CD32',
     fontWeight: '700',
     alignItems: 'center',
+    flexDirection: "column"
   },
   balance: {
     fontSize: 26,
@@ -262,6 +240,7 @@ const styles = StyleSheet.create({
   unlockText: {
     fontSize: 18,
     fontWeight: '700',
+    color: "#0000ff"
   },
   // Modal Styles
   modalOverlay: {
@@ -300,5 +279,38 @@ const styles = StyleSheet.create({
   },
   buttonText:{
     color: "#fff"
+  },
+  joinContainer:{
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 30
+  },
+  joinButton:{
+    backgroundColor: "#0000ff",
+    padding: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    borderRadius: 10
+  },
+  joinButtonText:{
+    color: "#fff"
+  },
+  history:{
+    borderWidth: 1,
+    borderColor: "#0000ff",
+    alignItems: "center",
+    flexDirection: "row",
+    padding: 10,
+    borderRadius: 10,
+    gap: 10
+  },
+  historyText:{
+    color: "#0000ff"
+  },
+  backButton:{
+    marginTop: 30,
+    marginBottom: 30
   }
 });

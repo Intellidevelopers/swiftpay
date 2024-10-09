@@ -36,7 +36,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('/(tabs)')
+      router.replace('/splash')
     }
   }, [loaded]);
 
@@ -131,10 +131,25 @@ function RootLayoutNav() {
         <Stack.Screen name="AirtimeData" options={{ headerShown: false }} />
         <Stack.Screen name="BillReceipt" options={{ headerShown: false }} />
         <Stack.Screen name="Electricity" options={{ headerShown: false }} />
-        <Stack.Screen name="sample" options={{ headerShown: false }} />
         <Stack.Screen name="Tv" options={{ headerShown: false }} />
-        <Stack.Screen name="Farida" options={{ headerShown: false }} />
-        <Stack.Screen name="Benjamin" options={{ headerShown: false }} />
+        <Stack.Screen name="ComingSoon" options={{ headerShown: false }} />
+        <Stack.Screen name="MyAccount" options={{ headerShown: false }} />
+        <Stack.Screen name="ChangeSwiftpayTag" options={{ headerShown: false }} />
+        <Stack.Screen name="CustomerCare" options={{ headerShown: false }} />
+        <Stack.Screen name="ChangePassword" options={{ headerShown: false }} />
+        <Stack.Screen name="EnterCodeScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="ResetPassword" options={{ headerShown: false }} />
+        <Stack.Screen name="ChangePin" options={{ headerShown: false }} />
+        <Stack.Screen name="EnterPin" options={{ headerShown: false }} />
+        <Stack.Screen name="TwoFactorAuthentication" options={{ headerShown: false }} />
+        <Stack.Screen name="AuthVerification" options={{ headerShown: false }} />
+        <Stack.Screen name="GroupDashboard" options={{ headerShown: false }} />
+        <Stack.Screen name="GroupSavingsDetails" options={{ headerShown: false }} />
+        <Stack.Screen name="HoldingsInvest" options={{ headerShown: false }} />
+        <Stack.Screen name="StartHoldings" options={{ headerShown: false }} />
+        <Stack.Screen name="InvestDashboard" options={{ headerShown: false }} />
+        <Stack.Screen name="HoldingsSaveInHardCurrency" options={{ headerShown: false }} />
+        <Stack.Screen name="Fiats" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

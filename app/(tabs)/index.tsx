@@ -141,7 +141,7 @@ useEffect(() => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.push('/')}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.push('/MyAccount')}>
           <Text style={{color: "#fff", fontSize: 25, fontWeight: "900"}}>S</Text>
         </TouchableOpacity>
 
