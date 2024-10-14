@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
@@ -22,7 +23,7 @@ const Africa = () => {
           <Text style={styles.listItem}>Pay Low international Transfer fees</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/InternationalTransfer')}>
         <Text style={styles.buttonText}>Send Money</Text>
       </TouchableOpacity>
     </View>

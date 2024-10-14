@@ -36,7 +36,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('/splash')
+      router.replace('/AjoDetails')
     }
   }, [loaded]);
 
@@ -150,6 +150,17 @@ function RootLayoutNav() {
         <Stack.Screen name="InvestDashboard" options={{ headerShown: false }} />
         <Stack.Screen name="HoldingsSaveInHardCurrency" options={{ headerShown: false }} />
         <Stack.Screen name="Fiats" options={{ headerShown: false }} />
+        <Stack.Screen name="InvestAsset" options={{ headerShown: false }} />
+        <Stack.Screen name="InvestDetails" options={{ headerShown: false }} />
+        <Stack.Screen name="InternationalTransfer" options={{ headerShown: false }} />
+        <Stack.Screen name="SendToAbroad" options={{ headerShown: false }} />
+        <Stack.Screen name="TransferAbroad" options={{ headerShown: false }} />
+        <Stack.Screen name="AjoContributionDashboard" options={{ headerShown: false }} />
+        <Stack.Screen name="CreateAjo" options={{ headerShown: false }} />
+        <Stack.Screen name="ConfirmationScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="GroupDetails" options={{ headerShown: false }} />
+        <Stack.Screen name="Confirmation" options={{ headerShown: false }} />
+        <Stack.Screen name="AjoDetails" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

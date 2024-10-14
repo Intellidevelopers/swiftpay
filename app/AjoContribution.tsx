@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
@@ -22,7 +23,7 @@ const AjoContribution = () => {
           <Text style={styles.listItem}>Create Personal or Business Ajo Contribution Account</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/AjoContributionDashboard')}>
         <Text style={styles.buttonText}>Start Contribution</Text>
       </TouchableOpacity>
     </View>
