@@ -17,12 +17,15 @@ const MyAccount = () => {
         <View style={styles.profileImageContainer}>
           <Text style={styles.profileInitial}>S</Text>
         </View>
-        <Text style={styles.profileName}>Adeagbo Josiah</Text>
-        <Text style={styles.profileEmail}>adeagbojosaih1@gmail.com</Text>
-        <View style={styles.medalContainer}>
+        <View>
+          <Text style={styles.profileName}>Adeagbo Josiah</Text>
+          <Text style={styles.profileEmail}>adeagbojosaih1@gmail.com</Text>
+          <View style={styles.medalContainer}>
           <View  style={styles.badge}><FontAwesome5 name='medal' color={'#fff'} size={10} /></View>
           <Text style={styles.medalText}>Gold Badge</Text>
         </View>
+        </View>
+        
       </View>
 
       {/* Personal Details */}
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: '#f5f5f5',
   },
   backButton: {
     backgroundColor: '#0000FF',
@@ -99,31 +102,36 @@ const styles = StyleSheet.create({
   profileSection: {
     alignItems: 'center',
     marginVertical: 20,
+    flexDirection: 'row',
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 10,
   },
   profileImageContainer: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     borderRadius: 40,
     backgroundColor: '#0000FF',
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 10
+
   },
   profileInitial: {
-    fontSize: 40,
+    fontSize: 25,
     color: 'white',
     fontWeight: 'bold',
   },
   profileName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
-    marginVertical: 5,
   },
   profileEmail: {
     fontSize: 14,
     color: '#999',
   },
   detailsContainer: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
     marginVertical: 20,
@@ -154,7 +162,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   swiftPayContainer: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 15,
     flexDirection: 'row',
@@ -186,12 +194,13 @@ const styles = StyleSheet.create({
   },
   label:{
     fontWeight: "700",
-    color: "#666"
+    color: "#666",
+    marginBottom: 10
   },
   badge:{
     backgroundColor: "orange",
-    height: 20,
-    width: 20,
+    height: 15,
+    width: 15,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 50
@@ -199,7 +208,6 @@ const styles = StyleSheet.create({
   medalContainer:{
     alignItems: "center",
     flexDirection: "row",
-    justifyContent: "center",
     gap: 5
   },
   medalText:{

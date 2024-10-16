@@ -102,15 +102,18 @@ export default Cryptos
 
 const styles = StyleSheet.create({
     container:{
+        backgroundColor: "#fff"
     },
     itemContainer:{
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginBottom: 40,
-        padding: 10,
+        marginBottom: 20,
+        padding: 15,
         alignSelf: "center",
-        gap: 15
+        gap: 30,
+        backgroundColor: "#f5f5f5",
+        borderRadius: 10,
     },
     icon:{
         width: 35,

@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
@@ -22,7 +23,7 @@ const AjoSavings = () => {
           <Text style={styles.listItem}>Make swift Withdrawal and also create multiple Ajo Savings</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/StartAjoSavings')}>
         <Text style={styles.buttonText}>Start Ajo Savings</Text>
       </TouchableOpacity>
     </View>
