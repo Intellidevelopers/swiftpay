@@ -4,17 +4,21 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-type Section = 'finances' | 'holdings' | 'depositWithdrawal';
+type Section = 'finances' | 'holdings' | 'depositWithdrawal' | 'international' | 'ajo';
 
 const Profile = () => {
   const [expandedSections, setExpandedSections] = useState<{
     finances: boolean;
     holdings: boolean;
     depositWithdrawal: boolean;
+    international: boolean;
+    ajo: boolean;
   }>({
     finances: false,
     holdings: false,
     depositWithdrawal: false,
+    international: false,
+    ajo: false,
   });
 
   const toggleSection = (section: Section) => {
@@ -64,29 +68,67 @@ const Profile = () => {
           {expandedSections.finances && (
             <>
               <TouchableOpacity style={styles.subListItem}>
-                <Text style={styles.subListText}>International Transfer</Text>
+                <Text style={styles.subListText}>Buy Currencies</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.subListItem}>
-                <Text style={styles.subListText}>Ajo Savings And Contribution</Text>
+                <Text style={styles.subListText}>Sell Currencies</Text>
               </TouchableOpacity>
             </>
           )}
 
+          <TouchableOpacity style={styles.listItem} onPress={() => toggleSection('international')}>
+            <MaterialCommunityIcons name="earth" size={24} color="#000" />
+            <Text style={styles.listText}>International Transfer</Text>
+            <AntDesign name={expandedSections.international ? 'up' : 'down'} size={18} color="#000" />
+          </TouchableOpacity>
+
+          {expandedSections.international && (
+            <>
+              <TouchableOpacity style={styles.subListItem}>
+                <Text style={styles.subListText}>Send Abroad</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.subListItem}>
+                <Text style={styles.subListText}>Send Local</Text>
+              </TouchableOpacity>
+            </>
+          )}
+
+
+<TouchableOpacity style={styles.listItem} onPress={() => toggleSection('ajo')}>
+            <MaterialCommunityIcons name="database" size={24} color="#000" />
+            <Text style={styles.listText}>Ajo Savings & Contribution</Text>
+            <AntDesign name={expandedSections.ajo ? 'up' : 'down'} size={18} color="#000" />
+          </TouchableOpacity>
+
+          {expandedSections.ajo && (
+            <>
+              <TouchableOpacity style={styles.subListItem}>
+                <Text style={styles.subListText}>Ajo Savings</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.subListItem}>
+                <Text style={styles.subListText}>Ajo Contribution</Text>
+              </TouchableOpacity>
+            </>
+          )}
+
+
           <TouchableOpacity style={styles.listItem} onPress={() => toggleSection('holdings')}>
             <MaterialCommunityIcons name="briefcase-outline" size={24} color="#000" />
-            <Text style={styles.listText}>Holdings</Text>
+            <Text style={styles.listText}>Holdings & Investment</Text>
             <AntDesign name={expandedSections.holdings ? 'up' : 'down'} size={18} color="#000" />
           </TouchableOpacity>
           
           {expandedSections.holdings && (
             <>
               <TouchableOpacity style={styles.subListItem}>
-                <Text style={styles.subListText}>Holdings 1</Text>
+                <Text style={styles.subListText}>Save in Hard Currency</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.subListItem}>
-                <Text style={styles.subListText}>Holdings 2</Text>
+                <Text style={styles.subListText}>Invest in Stocks & Crypto</Text>
               </TouchableOpacity>
             </>
           )}

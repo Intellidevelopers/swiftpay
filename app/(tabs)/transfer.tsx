@@ -235,7 +235,7 @@ useEffect(() => {
           <View style={styles.option}>
             <TouchableOpacity onPress={() => handleTransferTypeChange('Bank')} style={styles.option}>
               <Ionicons name={selectedTransferType === 'Bank' ? 'radio-button-on' : 'radio-button-off'} size={24} color="blue" />
-              <Text style={styles.optionText}>Single Bank Transfer</Text>
+              <Text style={styles.optionText}>Multiple Bank Transfer</Text>
             </TouchableOpacity>
           </View>
         </View>

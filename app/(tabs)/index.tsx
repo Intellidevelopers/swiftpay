@@ -142,7 +142,8 @@ useEffect(() => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.push('/MyAccount')}>
-          <Text style={{color: "#fff", fontSize: 25, fontWeight: "900"}}>S</Text>
+        <Image source={require('../../assets/user.png')} style={styles.user} />
+
         </TouchableOpacity>
 
         <View style={styles.link}>
@@ -572,8 +573,8 @@ featuresContainer: {
     backgroundColor: '#0000ff',
     borderRadius: 100,
     alignItems: 'center',
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     marginBottom: 10,
     justifyContent: "center"
   },
@@ -792,6 +793,14 @@ featuresContainer: {
     justifyContent: 'center',  // Center the animated text if necessary
     overflow: 'hidden',  // Hide overflow text if needed
   },
+  user:{
+    width: 55,
+    height: 55,
+    borderRadius: 50,
+    backgroundColor: '#0000FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 export default Index;

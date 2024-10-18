@@ -59,7 +59,7 @@ const ChangeSwiftPayTag: React.FC = () => {
 
       <BottomSheet isVisible={isSuccessVisible} onBackdropPress={() => setIsSuccessVisible(false)}>
         <View style={styles.bottomSheetContent}>
-            <ImageBackground source={require('../assets/icons/background.png')} style={styles.tagBg}>
+            <ImageBackground source={require('../assets/icons/background.png')} style={styles.tagBg} imageStyle={styles.imageStyle}>
             <Image source={require('../assets/icons/at.png')} style={styles.logo} />
 
             </ImageBackground>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     height: 80,
     resizeMode: "contain",
     alignSelf: "center",
-    top: 50,
+    top: 40,
   },
   bottomSheetContent: {
     padding: 20,
@@ -169,12 +169,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   tagBg:{
-    width: 420,
+    width: 360,
     alignSelf: "center",
     top: -20,
     borderRadius: 30,
     marginBottom: 40,
-    resizeMode: "cover",
-    borderTopLeftRadius: 30
+    resizeMode: "contain",
+  },
+  imageStyle:{
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    alignSelf: "center",
+
   }
 });

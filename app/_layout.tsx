@@ -16,7 +16,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: 'splash',
+  initialRouteName: 'MyAccount',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -36,7 +36,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
-      router.replace('/splash')
+      router.replace('/')
     }
   }, [loaded]);
 
@@ -165,6 +165,7 @@ function RootLayoutNav() {
         <Stack.Screen name="CreateAjoSavings" options={{ headerShown: false }} />
         <Stack.Screen name="AjoSavingsDetails" options={{ headerShown: false }} />
         <Stack.Screen name="AllAjoHistory" options={{ headerShown: false }} />
+        <Stack.Screen name="StatusInformation" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

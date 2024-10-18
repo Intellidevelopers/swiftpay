@@ -11,7 +11,7 @@ const StartAjoSavings = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.header}>
-        <TouchableOpacity style={styles.backbutton}>
+        <TouchableOpacity style={styles.backbutton} onPress={() => router.back()}>
             <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerText}>AJO SAVINGS</Text>
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     gap: 20
   },
   progress:{
-    width: 170,
+    width: 150,
     height: 4,
     backgroundColor: '#0062ff',
     borderRadius: 10,

@@ -1,9 +1,37 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, ScrollView, Modal, Alert } from 'react-native';
 import { AntDesign, FontAwesome, FontAwesome5, FontAwesome6, SimpleLineIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import * as ImagePicker from 'expo-image-picker';
 
 const MyAccount = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  // Function to pick an image from the gallery
+  const pickImage = async () => {
+    // Ask for permission to access the gallery
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Sorry, we need camera roll permissions to make this work!');
+      return;
+    }
+
+    // Launch the image picker
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    // If the user didn't cancel the selection
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      setProfileImage(result.assets[0].uri); // Use assets[0].uri to get the image URI
+    }
+  };
+  
   return (
     <View style={styles.container}>
       {/* Back Button */}
@@ -14,16 +42,23 @@ const MyAccount = () => {
       {/* Profile Section */}
       <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.profileSection}>
-        <View style={styles.profileImageContainer}>
-          <Text style={styles.profileInitial}>S</Text>
-        </View>
+      <TouchableOpacity onPress={pickImage}>
+            <View style={styles.profileImageContainer}>
+              {profileImage ? (
+                <Image source={{ uri: profileImage }} style={styles.user} />
+              ) : (
+                <Image source={require('../assets/user.png')} style={styles.user} />
+              )}
+            </View>
+          </TouchableOpacity>
+
         <View>
           <Text style={styles.profileName}>Adeagbo Josiah</Text>
           <Text style={styles.profileEmail}>adeagbojosaih1@gmail.com</Text>
-          <View style={styles.medalContainer}>
-          <View  style={styles.badge}><FontAwesome5 name='medal' color={'#fff'} size={10} /></View>
-          <Text style={styles.medalText}>Gold Badge</Text>
-        </View>
+          <TouchableOpacity  style={styles.badge} onPress={() => router.push('/StatusInformation')}>
+            <Image source={require('../assets/icons/golden.png')} style={styles.icon} />
+            <Text style={styles.medalText}>Gold Badge</Text>
+          </TouchableOpacity>
         </View>
         
       </View>
@@ -61,6 +96,13 @@ const MyAccount = () => {
           <Text style={styles.detailLabel}>PHONE NUMBER</Text>
           <Text style={styles.detailValue}>08088886823</Text>
         </View>
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>ACCOUNT STATUS</Text>
+          <TouchableOpacity style={styles.flex} onPress={() => router.push('/StatusInformation')}>
+            <Image source={require('../assets/icons/golden.png')} style={styles.icon} />
+            <Text>Gold Badge</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* SwiftPay Tag */}
@@ -81,6 +123,35 @@ const MyAccount = () => {
         <Text style={styles.deleteText}>Delete Account</Text>
       </TouchableOpacity>
       </ScrollView>
+
+
+        {/* Modal for Badge Details */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <TouchableOpacity style={styles.modalOverlay}  onPress={() => setModalVisible(false)}>
+            <View style={styles.modalContent}>
+              <View style={styles.modalBadgeHeader}>
+                <Image source={require('../assets/icons/golden.png')} style={styles.modalBadgeIcon} />
+                <Text style={styles.modalBadgeText}>Green Badge</Text>
+              </View>
+              <View style={styles.flex}>
+                <Text style={styles.modalSubText}>Today's Transaction</Text>
+                <Text style={styles.modalSubText}>₦70,000</Text>
+              </View>
+             <View style={styles.flex}>
+              <Text style={styles.modalSubText}>Progress to next level</Text>
+                <View style={styles.progressBar}>
+                  <View style={styles.progress} />
+                </View>
+             </View>
+              <Text style={styles.progressRemaining}>Remaining: ₦30,000</Text>
+            </View>
+          </TouchableOpacity>
+        </Modal>
     </View>
   );
 };
@@ -144,6 +215,9 @@ const styles = StyleSheet.create({
   },
   detailRow: {
     marginVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   detailLabel: {
     fontSize: 12,
@@ -198,12 +272,10 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   badge:{
-    backgroundColor: "orange",
-    height: 15,
-    width: 15,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 50
+    flexDirection: "row",
+    alignSelf: 'flex-start',
   },
   medalContainer:{
     alignItems: "center",
@@ -213,6 +285,84 @@ const styles = StyleSheet.create({
   medalText:{
     fontSize: 12,
     fontWeight: "500"
+  },
+  icon:{
+    width: 15,
+    height: 15,
+    resizeMode: "contain",
+    marginRight: 5
+  },
+  flex:{
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '90%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+  },
+  modalBadgeHeader: {
+    alignItems: 'center',
+  },
+  modalBadgeIcon: {
+    width: 50,
+    height: 50,
+    marginRight: 10,
+  },
+  modalBadgeText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  modalSubText: {
+    fontSize: 14,
+    marginTop: 10,
+  },
+  progressBar: {
+    height: 5,
+    backgroundColor: '#eee',
+    width: '40%',
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  progress: {
+    width: '70%', // This is just an example; dynamically set it based on progress.
+    backgroundColor: '#0000ff',
+    height: '100%',
+    borderRadius: 5,
+  },
+  progressRemaining: {
+    fontSize: 12,
+    color: '#000',
+    marginTop: 5,
+    alignSelf: "flex-end",
+    textAlign: "left"
+  },
+  closeButton: {
+    marginTop: 20,
+    backgroundColor: '#0000FF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  user:{
+    width: 55,
+    height: 55,
+    borderRadius: 50,
+    backgroundColor: '#0000FF',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 

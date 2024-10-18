@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, TextInput, Modal } from 'react-native';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, TextInput, Modal, FlatList } from 'react-native';
+import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { BottomSheet } from '@rneui/themed';
 import CustomSwitch from '@/components/CustomSwitch';
 import { Calendar } from 'react-native-calendars';
+import RNPickerSelect from 'react-native-picker-select'; // You can use any dropdown library of your choice.
 
-const SavingsDetailScreen: React.FC = () => {
+const SavingsDetails: React.FC = () => {
   const router = useRouter();
   const [savingsName, setSavingsName] = useState('');
   const [amountToSave, setAmountToSave] = useState('');
@@ -60,6 +61,10 @@ const SavingsDetailScreen: React.FC = () => {
   const [isSuccessVisible, setIsSuccessVisible] = useState(false);
   const [isCustomDateVisible, setIsCustomDateVisible] = useState(false);
   const [isDateVisible, setIsDateVisible] = useState(false);
+  const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
+  const [amount, setAmount] = useState('');
+  const [pin, setPin] = useState('');
+  const [walletModalVisible, setWalletModalVisible] = useState(false);
   const handleTransferTypeChange = (type: string) => {
     setSelectedTransferType(type);
     if (type === 'Swiftpay') {
@@ -89,6 +94,20 @@ const SavingsDetailScreen: React.FC = () => {
     setCalendarVisible(false); // Hide calendar after selecting a date
   };
 
+  const [wallets] = useState(['SwiftPay Wallet', 'Bitcoin Wallet', 'Ethereum Wallet']); // Example wallets
+
+  // Open wallet picker
+  const openWalletPicker = () => {
+    setWalletModalVisible(true);
+  };
+
+  // Handle wallet selection
+  const handleWalletSelect = (wallet: string) => {
+    setSelectedWallet(wallet);
+    setWalletModalVisible(false); // Close picker after selection
+  };
+
+  
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header Section */}
@@ -132,7 +151,7 @@ const SavingsDetailScreen: React.FC = () => {
           <TouchableOpacity style={styles.addButton} onPress={handlePay}>
             <Text style={styles.buttonText}>Add</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.withdrawButton}>
+          <TouchableOpacity style={styles.withdrawButton} onPress={() => setModalVisible(true)}>
             <Text style={styles.buttonText}>Withdraw</Text>
           </TouchableOpacity>
         </View>
@@ -330,9 +349,89 @@ const SavingsDetailScreen: React.FC = () => {
     {/* Add other date options if needed */}
   </View>
 </BottomSheet>
+
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <View style={styles.flex}>
+            <Text style={styles.modalTitle}>Withdraw money to wallet</Text>
+            <TouchableOpacity onPress={() => setModalVisible(false )}>
+            <Feather name='x' size={20} color={'#0000ff'}/>
+            </TouchableOpacity>
+            </View>
+
+            {/* Wallet Picker */}
+            <Text style={styles.labelText}>Select Source</Text>
+            <TouchableOpacity style={styles.walletPicker} onPress={openWalletPicker}>
+              <Text style={styles.walletPickerText}>
+                {selectedWallet ? selectedWallet : 'Select Wallet'}
+              </Text>
+              <AntDesign name="down" size={16} color="black" />
+            </TouchableOpacity>
+
+            {/* Wallet Picker Modal */}
+            <Modal
+              visible={walletModalVisible}
+              transparent={true}
+              animationType="fade"
+              onRequestClose={() => setWalletModalVisible(false)}
+            >
+              <TouchableOpacity
+                style={styles.walletModalOverlay}
+                onPress={() => setWalletModalVisible(false)}
+              >
+                <View style={styles.walletModalContent}>
+                  <FlatList
+                    data={wallets}
+                    renderItem={({ item }) => (
+                      <TouchableOpacity
+                        style={styles.walletOption}
+                        onPress={() => handleWalletSelect(item)}
+                      >
+                        <Text style={styles.walletOptionText}>{item}</Text>
+                      </TouchableOpacity>
+                    )}
+                    keyExtractor={(item) => item}
+                  />
+                </View>
+              </TouchableOpacity>
+            </Modal>
+
+            {/* Amount Input */}
+            <Text style={styles.labelText}>Amount</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Amount"
+              keyboardType="numeric"
+              value={amount}
+              onChangeText={setAmount}
+            />
+
+            <Text style={styles.labelText}>Transfer PIN</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              value={pin}
+              onChangeText={setPin}
+            />
+
+            {/* Close Modal */}
+            <TouchableOpacity style={styles.nextButton}>
+              <Text style={{color: '#fff'}}>Withdraw Money</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
+export default SavingsDetails;
+
 
 const activityData = [
   { amount: '$61.50', date: 'Yesterday', type: 'add' },
@@ -664,9 +763,8 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: '#fff',
     padding: 20,
-    borderRadius: 20,
-    alignItems: 'center',
-    width: 300,
+    borderRadius: 10,
+    width: 330,
   },
   modalText: {
     fontSize: 15,
@@ -693,7 +791,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   },
   modalTitle: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '700',
     marginBottom: 10,
   },
@@ -730,8 +828,7 @@ const styles = StyleSheet.create({
     right: 10,
   },
   picker: {
-    flex: 1,
-    padding: 10,
+    borderWidth: 1,
   },
   iconContainer: {
     position: 'absolute',
@@ -802,6 +899,94 @@ const styles = StyleSheet.create({
     color: '#0000ff',
     marginVertical: 10,
   },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  confirmButton: {
+    backgroundColor: '#FF6347',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  confirmButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  withdrawTitle:{
+    fontSize: 18,
+    fontWeight: "500",
+  },
+  flex:{
+    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 30
+  },
+  labelText:{
+    fontSize: 13,
+    fontWeight: '500'
+  },
+
+  walletPicker: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    width: '100%',
+    marginBottom: 20,
+    borderColor: "#0000ff"
+  },
+  walletPickerText: {
+    fontSize: 14,
+  },
+
+  walletModalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  walletModalContent: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    width: 250,
+  },
+  walletOption: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  walletOptionText: {
+    fontSize: 16,
+  },
 });
 
-export default SavingsDetailScreen;
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    marginBottom: 15,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    marginBottom: 15,
+  },
+
+});
+
